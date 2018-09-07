@@ -3,11 +3,20 @@
 #include <dos.h>
 #include <Windows.h>
 #include <stdlib.h>
+#include <conio.h>
+
+
+
 using namespace std;
 
 bool gameOver = false;
+
 int const fieldWidth = 10; // 
 int const fieldHeight = 20;
+int score = 0;
+
+enum eDirection { STOP = 0, LEFT, RIGHT, UP, DOWN };
+eDirection dir;
 
 struct figuer_1
 {
@@ -23,122 +32,172 @@ struct figuer_1
 	int x4 = 3;
 	int y4 = fieldWidth / 2;
 };
-struct figuger_2
-{
-	char fig_2[1][4]
-	{
-		'#','#','#','#'
+figuer_1 koo;
 
-	};
-};
-struct figuger_3
-{
-	char fig_3[2][3]
-	{
-		' ','#',' ',
-		'#','#','#'
+void Draw(char arr[][fieldWidth]); 
 
-	};
-};
-struct figuger_4
-{
-	char fig_4[2][3]
-	{
-		' ','#','#',
-		'#','#',' '
-
-	};
-};
-struct figuger_5
-{
-	char fig_2[3][3]
-	{
-		'#',' ',' ',
-		'#',' ',' ',
-		'#','#','#'
-
-	};
-};
-void Draw(char arr[][fieldWidth]); // ?????? ????????? ????
+void Input();
+void Logic();
 
 int main()
 {
 	char field[fieldHeight][fieldWidth];
 
-	while(!gameOver)
+	//while (!gameOver)
+	//{
+	//	// GAME TIMING =======================
+
+
+	//	// INPUT =============================
+
+
+	//	// GAME LOGIC ========================
+
+
+	//	// RENDER OUTPUT =====================
+
+
+	//	// DRAW FIELD
+	//	
+
+	//}
+	while (!gameOver)
 	{
-		// GAME TIMING =======================
-
-	
-		// INPUT =============================
-
-
-		// GAME LOGIC ========================
-
-
-		// RENDER OUTPUT =====================
-
-
-		// DRAW FIELD
-
+		
 		Draw(field);
+		Input();
+		Logic();
+		
 	}
 		
 	
 	
+
+
 	system("pause");
 }
 
 void Draw(char arr[][fieldWidth])
 {
-	figuer_1 koo;
-	int time = 50;
-	for (int i = 0; i < fieldHeight; i++){
-		for (int j = 0; j < fieldWidth; j++){
-			arr[i][j] = ' ';
-		}
-	}
+	
+	int time = 0;
+	
+
+	cout << "-----------------------\n";
 
 	for (int i = 0; i < fieldHeight; i++)
 	{
+		cout << '|';
 		for (int j = 0; j < fieldWidth; j++)
 		{
-			arr[koo.x1++][koo.y1] = 'X';
-			arr[koo.x2++][koo.y1] = 'X';
-			arr[koo.x3++][koo.y1] = 'X';
-			arr[koo.x4++][koo.y1] = 'X';
+			Sleep(time);
+
 			
-		}
-	}
-	
-	cout << "-----------------------\n";
+			arr[i][j] = ' ';
+			if (i == koo.x1 && j == koo.y1)
+				arr[i][j] = 'x';
 
-	for (int i = 0; i < fieldHeight; i++)
-	{
-		cout << '|';
-		for (int j = 0; j < fieldWidth; j++)
-		{
-			Sleep(time);
+			if (i == koo.x2 && j == koo.y2)
+				arr[i][j] = 'x';
+
+			if (i == koo.x3 && j == koo.y3)
+				arr[i][j] = 'x';
+
+			if (i == koo.x4 && j == koo.y4)
+				arr[i][j] = 'x';
+
+			/*arr[koo.x1][koo.y1] = 'x';
+			arr[koo.x2][koo.y2] = 'x';
+			arr[koo.x3][koo.y3] = 'x';
+			arr[koo.x4][koo.y4] = 'x';*/
+
+			
+			
 			cout << setw(2) << arr[i][j];
 		}
 		cout << " |";
 		cout << endl;
 	}
 	cout << "-----------------------\n";
-
 	
-	/*for (int i = 0; i < height; i++)
+
+
+
+	system("cls");
+}
+
+void Input()
+{
+	if ( _kbhit() )
 	{
-		cout << '|';
-		for (int j = 0; j < width; j++)
+		switch (_getch())
 		{
-			arr[j][i] = ' ';
-			Sleep(time);
-			cout << setw(2) << arr[i][j];
+		case 'a':
+		{
+			dir = LEFT;
+			break;
 		}
-		cout << " |";
-		cout << endl;
-	}*/
+		case 'd':
+		{
+			dir = RIGHT;
+			break;
+		}
+		case 'w':
+		{
+			dir = UP;
+			break;
+		}
+		case 's':
+		{
+			dir = DOWN;
+		}
+		}
+	}
+}
+
+void Logic()
+{
+	switch (dir)
+	{
+	
+	case LEFT:
+	{
+		koo.y1-1;
+		koo.y2-1;
+		koo.y3-1;
+		koo.y4-1;
+
+		
+		break;
+	}
+		
+	case RIGHT:
+	{
+		/*koo.y1++;
+		koo.y2++;
+		koo.y3++;
+		koo.y4++;*/
+		break;
+	}		  
+		
+	case UP:
+	{
+		/*koo.x1--;
+		koo.x2--;
+		koo.x3--;
+		koo.x4--;*/
+		break;
+	}
+		
+	case DOWN:
+	{
+		koo.x1+1;
+		koo.x2+1;
+		koo.x3+1;
+		koo.x4+1;
+		break;
+	}
 
 	
+	}
 }
