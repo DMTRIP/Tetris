@@ -32,43 +32,15 @@ struct figuer_1
 	int x4 = 3;
 	int y4 = fieldWidth / 2;
 };
-struct figuer_1*  pKoo;
 figuer_1 koo;
+figuer_1 *pKoo = &koo;
 
 void Draw(char arr[][fieldWidth]); 
 
 void Input();
 void Logic();
 
-// temp
-int x1 = 0;
-int* px1 = &x1;
 
-//int y1 = fieldWidth / 2;
-//int* py1 = &y1;
-
-//int y0 = fieldWidth / 2;
-//int* py0 = &y0;
-
-int x2 = 1;
-int* px2 = &x2;
-
-int y2 = fieldWidth / 2;
-int* py2 = &y2;
-
-int x3 = 2;
-int* px3 = &x3;
-
-int y3 = fieldWidth / 2;
-int* py3 = &y3;
-
-int x4 = 3;
-int* px4 = &x4;
-
-int y4 = fieldWidth / 2;
-int* py4 = &y4;
-
-//temp 2
 
 
 
@@ -139,13 +111,12 @@ void Draw(char arr[][fieldWidth])
 			if (i == *px4-- && j == *py4)
 				arr[i][j] = 'x';*/
 
-			arr[*px1][5] = 'x';
-			arr[*px2][*py2] = 'x';
-			arr[*px3][*py3] = 'x';
-			arr[*px4][*py4] = 'x';
+			arr[pKoo->x1][pKoo->y1] = 'x';
+			arr[pKoo->x2][pKoo->y2] = 'x';
+			arr[pKoo->x3][pKoo->y3] = 'x';
+			arr[pKoo->x4][pKoo->y4] = 'x';
 
 			
-			Sleep(time);
 			cout << setw(2) << arr[i][j];
 		}
 		cout << " |";
@@ -206,28 +177,28 @@ void Logic()
 		
 	case RIGHT:
 	{
-		/*koo.y1++;
-		koo.y2++;
-		koo.y3++;
-		koo.y4++;*/
+		pKoo->y1+1;
+		pKoo->y2+1;
+		pKoo->y3+1;
+		pKoo->y4+1;
 		break;
 	}		  
 		
 	case UP:
 	{
-		/*koo.x1--;
-		koo.x2--;
-		koo.x3--;
-		koo.x4--;*/
+		pKoo->x1-1; 
+		pKoo->x2-1; 
+		pKoo->x3-1; 
+		pKoo->x4-1; 
 		break;
 	}
 		
 	case DOWN:
 	{
-		px1+1;
-		px2+1;
-		px3+1;
-		px4+1;
+		pKoo->x1 + 1;
+		pKoo->x2 + 1;
+		pKoo->x3 + 1;
+		pKoo->x4 + 1;
 		break;
 	}
 
