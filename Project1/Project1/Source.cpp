@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include <iomanip>
 #include <dos.h>
 #include <Windows.h>
@@ -18,6 +18,7 @@ int score = 0;
 enum eDirection { STOP = 0, LEFT, RIGHT, UP, DOWN };
 eDirection dir;
 
+
 struct figuer_1
 {
 	int x1 = 0;
@@ -32,21 +33,49 @@ struct figuer_1
 	int x4 = 3;
 	int y4 = fieldWidth / 2;
 };
-figuer_1 koo;
-figuer_1 *pKoo = &koo;
+struct figuer_2
+{
+	int x1 = 0;
+	int y1 = (fieldWidth / 2) + 1;
 
+	int x2 = 0;
+	int y2 = fieldWidth / 2;
+
+	int x3 = 1;
+	int y3 = fieldWidth / 2;
+
+	int x4 = 1;
+	int y4 = (fieldWidth / 2) - 1;
+};
+struct figuer_3
+{
+	int x1 = 0;
+	int y1 = fieldWidth / 2;
+
+	int x2 = 0;
+	int y2 = (fieldWidth / 2) - 1;
+
+	int x3 = 1;
+	int y3 = fieldWidth / 2;
+
+	int x4 = 1;
+	int y4 = (fieldWidth / 2) - 1;
+};
+figuer_1 kooF1;
+figuer_2 kooF2;
+figuer_3 kooF3;
 void Draw(char arr[][fieldWidth]); 
 
 void Input();
 void Logic();
 
 
-
+char field[fieldHeight][fieldWidth];
 
 
 int main()
 {
-	char field[fieldHeight][fieldWidth];
+	
 
 	//while (!gameOver)
 	//{
@@ -66,6 +95,7 @@ int main()
 	//	
 
 	//}
+	
 	while (!gameOver)
 	{
 		
@@ -73,8 +103,9 @@ int main()
 		Input();
 		Logic();
 		
-	}
 		
+		
+	}
 	
 	
 
@@ -95,28 +126,28 @@ void Draw(char arr[][fieldWidth])
 		cout << '|';
 		for (int j = 0; j < fieldWidth; j++)
 		{
-			
-
-			
+			//SPACE ARREY
 			arr[i][j] = ' ';
-			/*if (i == *px1-- && j == 5)
-				arr[i][j] = 'x';
-
-			if (i == *px2-- && j == *py2)
-				arr[i][j] = 'x';
-
-			if (i == *px3-- && j == *py3)
-				arr[i][j] = 'x';
-
-			if (i == *px4-- && j == *py4)
-				arr[i][j] = 'x';*/
-
-			arr[pKoo->x1][pKoo->y1] = 'x';
-			arr[pKoo->x2][pKoo->y2] = 'x';
-			arr[pKoo->x3][pKoo->y3] = 'x';
-			arr[pKoo->x4][pKoo->y4] = 'x';
-
 			
+			
+			// FIGURE 1
+			/*arr[kooF1.x1][kooF1.y1] = 'x';
+			arr[kooF1.x2][kooF1.y2] = 'x';
+			arr[kooF1.x3][kooF1.y3] = 'x';
+			arr[kooF1.x4][kooF1.y4] = 'x';*/
+			
+			// FIGURE 2
+			/*arr[kooF2.x1][kooF2.y1] = 'x';
+			arr[kooF2.x2][kooF2.y2] = 'x';
+			arr[kooF2.x3][kooF2.y3] = 'x';
+			arr[kooF2.x4][kooF2.y4] = 'x';*/
+
+			// FIGURE 3
+			arr[kooF3.x1][kooF3.y1] = 'x';
+			arr[kooF3.x2][kooF3.y2] = 'x';
+			arr[kooF3.x3][kooF3.y3] = 'x';
+			arr[kooF3.x4][kooF3.y4] = 'x';
+
 			cout << setw(2) << arr[i][j];
 		}
 		cout << " |";
@@ -166,39 +197,131 @@ void Logic()
 	
 	case LEFT:
 	{
-		pKoo->y1-1;
-		pKoo->y2-1;
-		pKoo->y3-1;
-		pKoo->y4-1;
+		//  STATR MOVE FIGURE 1 LEFT
+		/*
+		    X
+		    X
+		    X
+		    X
+		*/
 
-		
+		kooF1.y1--;
+		kooF1.y2--;
+		kooF1.y3--;
+		kooF1.y4--;
+		dir = STOP; 
+
+		//  FINISH MOVE FIGURE 1 LEFT
+
+		//  STATR MOVE FIGURE 2 LEFT
+		/*
+			 X X 
+		   X X
+		*/
+		kooF2.y1--;
+		kooF2.y2--;
+		kooF2.y3--;
+		kooF2.y4--;
+		dir = STOP;
+		//FINISH MOVE FIGURE 2 LEFT
+
+		//  STATR MOVE FIGURE 3 LEFT
+		/*
+		   X X
+		   X X
+		*/
+		kooF3.y1--;
+		kooF3.y2--;
+		kooF3.y3--;
+		kooF3.y4--;
+		dir = STOP;
+		//FINISH MOVE FIGURE 3 LEFT
 		break;
 	}
 		
 	case RIGHT:
 	{
-		pKoo->y1+1;
-		pKoo->y2+1;
-		pKoo->y3+1;
-		pKoo->y4+1;
+		//  STATR MOVE FIGURE 1 RIGHT
+		/*
+			X
+			X
+			X
+			X
+		*/
+		kooF1.y1++;
+		kooF1.y2++;
+		kooF1.y3++;
+		kooF1.y4++;
+		dir = STOP;
+		//FINISH MOVE FIGURE 1 RIGHT
+
+		//  STATR MOVE FIGURE 2 RIGHT
+		/*
+			 X X
+		   X X
+		*/
+		kooF2.y1++;
+		kooF2.y2++;
+		kooF2.y3++;
+		kooF2.y4++;
+		dir = STOP;
+		//FINISH MOVE FIGURE 2 RIGHT
+
+		//  STATR MOVE FIGURE 3 RIGHT
+		/*
+		   X X
+		   X X
+		*/
+		kooF3.y1++;
+		kooF3.y2++;
+		kooF3.y3++;
+		kooF3.y4++;
+		dir = STOP;
+		//FINISH MOVE FIGURE 3 RIGHT
+
 		break;
 	}		  
 		
-	case UP:
-	{
-		pKoo->x1-1; 
-		pKoo->x2-1; 
-		pKoo->x3-1; 
-		pKoo->x4-1; 
-		break;
-	}
 		
 	case DOWN:
 	{
-		pKoo->x1 + 1;
-		pKoo->x2 + 1;
-		pKoo->x3 + 1;
-		pKoo->x4 + 1;
+		//  STATR MOVE FIGURE 1 DOWN
+		/*
+			X
+			X
+			X
+			X
+		*/
+		kooF1.x1++;
+		kooF1.x2++;
+		kooF1.x3++;
+		kooF1.x4++;
+		dir = STOP;
+		//FINISH MOVE FIGURE 2 DOWN
+
+		//  STATR MOVE FIGURE 2 DOWN
+		/*
+			 X X
+		   X X
+		*/
+		kooF2.x1++;
+		kooF2.x2++;
+		kooF2.x3++;
+		kooF2.x4++;
+		dir = STOP;
+		//FINISH MOVE FIGURE 2 DOWN
+
+		//  STATR MOVE FIGURE 3 DOWN
+		/*
+		   X X
+		   X X
+		*/
+		kooF3.x1++;
+		kooF3.x2++;
+		kooF3.x3++;
+		kooF3.x4++;
+		dir = STOP;
+		//FINISH MOVE FIGURE 3 DOWN
 		break;
 	}
 
