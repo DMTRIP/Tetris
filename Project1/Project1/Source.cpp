@@ -15,6 +15,8 @@ int const fieldWidth = 10; //
 int const fieldHeight = 20;
 int score = 0;
 
+int count = 0;
+int counter;
 enum eDirection { STOP = 0, LEFT, RIGHT, DOWN, CHANGEPOS };
 eDirection dir;
 
@@ -92,10 +94,10 @@ struct figuer_5
 struct figuer_6
 {
 	int x1 = 0;
-	int y1 = (fieldWidth / 2) + 1;
+	int y1 = (fieldWidth / 2) - 1;
 
 	int x2 = 1;
-	int y2 = (fieldWidth / 2) + 1;
+	int y2 = (fieldWidth / 2) - 1;
 
 	int x3 = 1;
 	int y3 = fieldWidth / 2;
@@ -144,7 +146,7 @@ int main()
 	
 	while (!gameOver)
 	{
-		
+		Setup();
 		Draw(field);
 		Input();
 		Logic();
@@ -161,6 +163,7 @@ int main()
 void Setup()
 {
 	gameOver = false;
+	dir = DOWN;
 }
 void Draw(char arr[][fieldWidth])
 {
@@ -208,7 +211,7 @@ void Draw(char arr[][fieldWidth])
 			arr[kooF5.x2][kooF5.y2] = 'x';
 			arr[kooF5.x3][kooF5.y3] = 'x';
 			arr[kooF5.x4][kooF5.y4] = 'x';*/
-
+			
 			// FIGURE 6
 			arr[kooF6.x1][kooF6.y1] = 'x';
 			arr[kooF6.x2][kooF6.y2] = 'x';
@@ -237,6 +240,7 @@ void Input()
 		case 'w':
 		{
 			dir = CHANGEPOS;
+			break;
 		}
 
 		case 'a':
@@ -264,14 +268,15 @@ void Logic()
 	
 	case LEFT:
 	{
-		//  STATR MOVE FIGURE 1 LEFT
+		
+			//  STATR MOVE FIGURE 1 LEFT
 		/*
-		    X
-		    X
-		    X
-		    X
+			X
+			X
+			X
+			X
 		*/
-		if (kooF1.y1 >= 0)
+		if (kooF1.y1 > 0)
 		{
 			kooF1.y1--;
 			kooF1.y2--;
@@ -280,74 +285,92 @@ void Logic()
 			dir = STOP;
 		}
 			
-		
+
+
+			//  FINISH MOVE FIGURE 1 LEFT
+
+			//  STATR MOVE FIGURE 2 LEFT
+			/*
+				 X X
+			   X X
+			*/
+		if (kooF2.y4 > 0)
+		{
+			kooF2.y1--;
+			kooF2.y2--;
+			kooF2.y3--;
+			kooF2.y4--;
+			dir = STOP;
+		}
 			
+			//FINISH MOVE FIGURE 2 LEFT
+
+			//  STATR MOVE FIGURE 3 LEFT
+			/*
+			   X X
+			   X X
+			*/
+		if (kooF3.y2 > 0)
+		{
+			kooF3.y1--;
+			kooF3.y2--;
+			kooF3.y3--;
+			kooF3.y4--;
+			dir = STOP;
+		}
+			
+			//FINISH MOVE FIGURE 3 LEFT
+
+			//  STATR MOVE FIGURE 4 LEFT
+			/*
+				X
+			  X X X
+			*/
+		if (kooF4.y4 > 0)
+		{
+			kooF4.y1--;
+			kooF4.y2--;
+			kooF4.y3--;
+			kooF4.y4--;
+			dir = STOP;
+		}
+			
+			//FINISH MOVE FIGURE 4 LEFT
+
+			//  STATR MOVE FIGURE 5 LEFT
+			/*
+			  X
+			  X X X
+			*/
+		if (kooF5.y1 > 0)
+		{
+			kooF5.y1--;
+			kooF5.y2--;
+			kooF5.y3--;
+			kooF5.y4--;
+			dir = STOP;
+		}
+			
+			//FINISH MOVE FIGURE 5 LEFT
+
+			//  STATR MOVE FIGURE 6 LEFT
+			/*
+			  X
+			  X X
+				X			  
+			*/
+		if (kooF6.y1 > 0)
+		{
+			kooF6.y1--;
+			kooF6.y2--;
+			kooF6.y3--;
+			kooF6.y4--;
+			dir = STOP;
+		}
+			
+			//FINISH MOVE FIGURE 5 LEFT
+			break;
 		
-		
-
-		//  FINISH MOVE FIGURE 1 LEFT
-
-		//  STATR MOVE FIGURE 2 LEFT
-		/*
-			 X X 
-		   X X
-		*/
-		kooF2.y1--;
-		kooF2.y2--;
-		kooF2.y3--;
-		kooF2.y4--;
-		dir = STOP;
-		//FINISH MOVE FIGURE 2 LEFT
-
-		//  STATR MOVE FIGURE 3 LEFT
-		/*
-		   X X
-		   X X
-		*/
-		kooF3.y1--;
-		kooF3.y2--;
-		kooF3.y3--;
-		kooF3.y4--;
-		dir = STOP;
-		//FINISH MOVE FIGURE 3 LEFT
-
-		//  STATR MOVE FIGURE 4 LEFT
-		/*
-		    X
-		  X X X
-		*/
-		kooF4.y1--;
-		kooF4.y2--;
-		kooF4.y3--;
-		kooF4.y4--;
-		dir = STOP;
-		//FINISH MOVE FIGURE 4 LEFT
-
-		//  STATR MOVE FIGURE 5 LEFT
-		/*
-		  X
-		  X X X
-		*/
-		kooF5.y1--;
-		kooF5.y2--;
-		kooF5.y3--;
-		kooF5.y4--;
-		dir = STOP;
-		//FINISH MOVE FIGURE 5 LEFT
-
-		//  STATR MOVE FIGURE 6 LEFT
-		/*
-		    X
-		  X X 
-		  X
-		*/
-		kooF6.y1--;
-		kooF6.y2--;
-		kooF6.y3--;
-		kooF6.y4--;
-		dir = STOP;
-		//FINISH MOVE FIGURE 5 LEFT
-		break;
 	}
 		
 	case RIGHT:
@@ -359,11 +382,15 @@ void Logic()
 			X
 			X
 		*/
-		kooF1.y1++;
-		kooF1.y2++;
-		kooF1.y3++;
-		kooF1.y4++;
-		dir = STOP;
+		if (kooF1.y1 < 9)
+		{
+			kooF1.y1++;
+			kooF1.y2++;
+			kooF1.y3++;
+			kooF1.y4++;
+			dir = STOP;
+		}
+		
 		//FINISH MOVE FIGURE 1 RIGHT
 
 		//  STATR MOVE FIGURE 2 RIGHT
@@ -371,11 +398,15 @@ void Logic()
 			 X X
 		   X X
 		*/
-		kooF2.y1++;
-		kooF2.y2++;
-		kooF2.y3++;
-		kooF2.y4++;
-		dir = STOP;
+		if (kooF2.y1 < 9)
+		{
+			kooF2.y1++;
+			kooF2.y2++;
+			kooF2.y3++;
+			kooF2.y4++;
+			dir = STOP;
+		}
+		
 		//FINISH MOVE FIGURE 2 RIGHT
 
 		//  STATR MOVE FIGURE 3 RIGHT
@@ -383,11 +414,15 @@ void Logic()
 		   X X
 		   X X
 		*/
-		kooF3.y1++;
-		kooF3.y2++;
-		kooF3.y3++;
-		kooF3.y4++;
-		dir = STOP;
+		if (kooF3.y1 < 9)
+		{
+			kooF3.y1++;
+			kooF3.y2++;
+			kooF3.y3++;
+			kooF3.y4++;
+			dir = STOP;
+		}
+		
 		//FINISH MOVE FIGURE 3 RIGHT
 
 		//  STATR MOVE FIGURE 4 RIGHT
@@ -395,11 +430,15 @@ void Logic()
 			X
 		  X X X
 		*/
-		kooF4.y1++;
-		kooF4.y2++;
-		kooF4.y3++;
-		kooF4.y4++;
-		dir = STOP;
+		if (kooF4.y2 < 9)
+		{
+			kooF4.y1++;
+			kooF4.y2++;
+			kooF4.y3++;
+			kooF4.y4++;
+			dir = STOP;
+		}
+		
 		//FINISH MOVE FIGURE 4 RIGHT
 
 		//  STATR MOVE FIGURE 5 RIGHT
@@ -407,23 +446,34 @@ void Logic()
 		  X
 		  X X X
 		*/
-		kooF5.y1++;
-		kooF5.y2++;
-		kooF5.y3++;
-		kooF5.y4++;
-		dir = STOP;
+		if (kooF5.y2 < 9)
+		{
+			kooF5.y1++;
+			kooF5.y2++;
+			kooF5.y3++;
+			kooF5.y4++;
+			dir = STOP;
+		}
+		
 		//FINISH MOVE FIGURE 5 RIGHT
 
 		//  STATR MOVE FIGURE 6 RIGHT
 		/*
 		  X
-		  X X X
+		  X X
+		    X
 		*/
-		kooF6.y1++;
-		kooF6.y2++;
-		kooF6.y3++;
-		kooF6.y4++;
-		dir = STOP;
+		if (kooF6.y3 < 9)
+		{
+			kooF6.y1++;
+			kooF6.y2++;
+			kooF6.y3++;
+			kooF6.y4++;
+			dir = STOP;
+		}
+			
+		
+		
 		//FINISH MOVE FIGURE 6 RIGHT
 		break;
 	}		  
@@ -438,11 +488,17 @@ void Logic()
 			X
 			X
 		*/
-		kooF1.x1++;
-		kooF1.x2++;
-		kooF1.x3++;
-		kooF1.x4++;
-		dir = STOP;
+		if (kooF1.x4 < 19)
+		{
+			kooF1.x1++;
+			kooF1.x2++;
+			kooF1.x3++;
+			kooF1.x4++;
+			dir = STOP;
+		}
+			
+			
+		
 		//FINISH MOVE FIGURE 2 DOWN
 
 		//  STATR MOVE FIGURE 2 DOWN
@@ -450,11 +506,15 @@ void Logic()
 			 X X
 		   X X
 		*/
-		kooF2.x1++;
-		kooF2.x2++;
-		kooF2.x3++;
-		kooF2.x4++;
-		dir = STOP;
+		if (kooF2.x4 < 19)
+		{
+			kooF2.x1++;
+			kooF2.x2++;
+			kooF2.x3++;
+			kooF2.x4++;
+			dir = STOP;
+		}
+		
 		//FINISH MOVE FIGURE 2 DOWN
 
 		//  STATR MOVE FIGURE 3 DOWN
@@ -462,11 +522,15 @@ void Logic()
 		   X X
 		   X X
 		*/
-		kooF3.x1++;
-		kooF3.x2++;
-		kooF3.x3++;
-		kooF3.x4++;
-		dir = STOP;
+		if (kooF3.x4 < 19)
+		{
+			kooF3.x1++;
+			kooF3.x2++;
+			kooF3.x3++;
+			kooF3.x4++;
+			dir = STOP;
+		}
+		
 		//FINISH MOVE FIGURE 3 DOWN
 
 		//  STATR MOVE FIGURE 4 DOWN
@@ -474,11 +538,15 @@ void Logic()
 			X
 		  X X X
 		*/
-		kooF4.x1++;
-		kooF4.x2++;
-		kooF4.x3++;
-		kooF4.x4++;
-		dir = STOP;
+		if (kooF4.x4 < 19)
+		{
+			kooF4.x1++;
+			kooF4.x2++;
+			kooF4.x3++;
+			kooF4.x4++;
+			dir = STOP;
+		}
+		
 		//FINISH MOVE FIGURE 4 DOWN
 
 		//  STATR MOVE FIGURE 5 DOWN
@@ -486,23 +554,32 @@ void Logic()
 		  X
 		  X X X
 		*/
-		kooF5.x1++;
-		kooF5.x2++;
-		kooF5.x3++;
-		kooF5.x4++;
-		dir = STOP;
+		if (kooF5.x4 < 19)
+		{
+			kooF5.x1++;
+			kooF5.x2++;
+			kooF5.x3++;
+			kooF5.x4++;
+			dir = STOP;
+		}
+		
 		//FINISH MOVE FIGURE 5 DOWN
 
 		//  STATR MOVE FIGURE 6 DOWN
 		/*
 		  X
-		  X X X
+		  X X 
+			X
 		*/
-		kooF6.x1++;
-		kooF6.x2++;
-		kooF6.x3++;
-		kooF6.x4++;
-		dir = STOP;
+		if (kooF6.x4 < 19)
+		{
+			kooF6.x1++;
+			kooF6.x2++;
+			kooF6.x3++;
+			kooF6.x4++;
+			dir = STOP;
+		}
+		
 		//FINISH MOVE FIGURE 6 DOWN
 		break;
 	}
