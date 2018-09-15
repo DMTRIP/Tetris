@@ -1,5 +1,6 @@
 ﻿#include <iostream>
 #include <iomanip>
+#include <ctime>
 #include <dos.h>
 #include <Windows.h>
 #include <stdlib.h>
@@ -11,13 +12,16 @@ using namespace std;
 
 bool gameOver;
 
-int const fieldWidth = 10; // 
+int const fieldWidth = 10; 
 int const fieldHeight = 20;
 int score = 0;
 
-int count = 0;
-int counter;
-enum eDirection { STOP = 0, LEFT, RIGHT, DOWN, CHANGEPOS };
+int counter = 0;
+int counterPos = 0;
+
+int figRand = 5; // определяет какая фигура появится на поле
+
+enum eDirection { STOP = 0, LEFT, RIGHT, DOWN, CHANGEPOS, FINISHED};
 eDirection dir;
 
 
@@ -124,7 +128,7 @@ char field[fieldHeight][fieldWidth];
 int main()
 {
 	
-
+	
 	//while (!gameOver)
 	//{
 	//	// GAME TIMING =======================
@@ -143,6 +147,15 @@ int main()
 	//	
 
 	//}
+
+	/*do
+	{
+		srand(time(0));
+		figRand = rand() % 6 + 1;
+
+	} while (dir == FINISHED);*/
+	
+	
 	
 	while (!gameOver)
 	{
@@ -150,9 +163,6 @@ int main()
 		Draw(field);
 		Input();
 		Logic();
-		
-		
-		
 	}
 	
 	
@@ -163,7 +173,7 @@ int main()
 void Setup()
 {
 	gameOver = false;
-	dir = DOWN;
+	/*dir = DOWN;*/
 }
 void Draw(char arr[][fieldWidth])
 {
@@ -181,42 +191,57 @@ void Draw(char arr[][fieldWidth])
 			//SPACE ARREY
 			arr[i][j] = ' ';
 			
-			                                                                                                    
+			
 			// FIGURE 1
-			/*arr[kooF1.x1][kooF1.y1] = 'x';
-			arr[kooF1.x2][kooF1.y2] = 'x';
-			arr[kooF1.x3][kooF1.y3] = 'x';
-			arr[kooF1.x4][kooF1.y4] = 'x';*/
+					arr[kooF1.x1][kooF1.y1] = 'x';
+					arr[kooF1.x2][kooF1.y2] = 'x';
+					arr[kooF1.x3][kooF1.y3] = 'x';
+					arr[kooF1.x4][kooF1.y4] = 'x';
 			
-			// FIGURE 2
-			/*arr[kooF2.x1][kooF2.y1] = 'x';
-			arr[kooF2.x2][kooF2.y2] = 'x';
-			arr[kooF2.x3][kooF2.y3] = 'x';
-			arr[kooF2.x4][kooF2.y4] = 'x';*/
-
-			// FIGURE 3
-			/*arr[kooF3.x1][kooF3.y1] = 'x';
-			arr[kooF3.x2][kooF3.y2] = 'x';
-			arr[kooF3.x3][kooF3.y3] = 'x';
-			arr[kooF3.x4][kooF3.y4] = 'x';*/
-
-			// FIGURE 4
-			/*arr[kooF4.x1][kooF4.y1] = 'x';
-			arr[kooF4.x2][kooF4.y2] = 'x';
-			arr[kooF4.x3][kooF4.y3] = 'x';
-			arr[kooF4.x4][kooF4.y4] = 'x';*/
-
-			// FIGURE 5
-			/*arr[kooF5.x1][kooF5.y1] = 'x';
-			arr[kooF5.x2][kooF5.y2] = 'x';
-			arr[kooF5.x3][kooF5.y3] = 'x';
-			arr[kooF5.x4][kooF5.y4] = 'x';*/
 			
-			// FIGURE 6
-			arr[kooF6.x1][kooF6.y1] = 'x';
-			arr[kooF6.x2][kooF6.y2] = 'x';
-			arr[kooF6.x3][kooF6.y3] = 'x';
-			arr[kooF6.x4][kooF6.y4] = 'x';
+			//// FIGURE 2
+			//	arr[kooF2.x1][kooF2.y1] = 'x';
+			//	arr[kooF2.x2][kooF2.y2] = 'x';
+			//	arr[kooF2.x3][kooF2.y3] = 'x';
+			//	arr[kooF2.x4][kooF2.y4] = 'x';
+			//
+			//
+
+			//// FIGURE 3
+			//
+			//	arr[kooF3.x1][kooF3.y1] = 'x';
+			//	arr[kooF3.x2][kooF3.y2] = 'x';
+			//	arr[kooF3.x3][kooF3.y3] = 'x';
+			//	arr[kooF3.x4][kooF3.y4] = 'x';
+			//
+			//
+
+			//// FIGURE 4
+			//
+			//	arr[kooF4.x1][kooF4.y1] = 'x';
+			//	arr[kooF4.x2][kooF4.y2] = 'x';
+			//	arr[kooF4.x3][kooF4.y3] = 'x';
+			//	arr[kooF4.x4][kooF4.y4] = 'x';
+			//
+			//
+
+			//// FIGURE 5
+			//
+			//	arr[kooF5.x1][kooF5.y1] = 'x';
+			//	arr[kooF5.x2][kooF5.y2] = 'x';
+			//	arr[kooF5.x3][kooF5.y3] = 'x';
+			//	arr[kooF5.x4][kooF5.y4] = 'x';
+			//
+			//
+			//
+			//// FIGURE 6
+			//
+			//	arr[kooF6.x1][kooF6.y1] = 'x';
+			//	arr[kooF6.x2][kooF6.y2] = 'x';
+			//	arr[kooF6.x3][kooF6.y3] = 'x';
+			//	arr[kooF6.x4][kooF6.y4] = 'x';
+			
+			
 
 			cout << setw(2) << arr[i][j];
 		}
@@ -265,6 +290,86 @@ void Logic()
 {
 	switch (dir)
 	{
+	case CHANGEPOS:
+	{
+		
+		// CHANGEPOS for fig 1 
+
+		if (counterPos == 0)
+		{
+			counterPos++;
+			
+			int nx = kooF1.x1;
+			int ny = kooF1.y1;
+
+			kooF1.x1 = nx;
+			kooF1.x2 = nx;
+			kooF1.x3 = nx;
+			kooF1.x4 = nx;
+
+			kooF1.y1 = ny;
+			kooF1.y2 = ny - 1;
+			kooF1.y3 = ny - 2;
+			kooF1.y4 = ny - 3;
+		}
+		else if (counterPos == 1)
+		{
+			counterPos++;
+
+			int nx = kooF1.x1;
+			int ny = kooF1.y1;
+
+				kooF1.x1 = nx;
+				kooF1.x2 = nx - 1;
+				kooF1.x3 = nx - 2;
+				kooF1.x4 = nx - 3;
+
+				kooF1.y1 = ny;
+				kooF1.y2 = ny;
+				kooF1.y3 = ny;
+				kooF1.y4 = ny; 
+		}
+			else if (counterPos == 2)
+			{
+				counterPos++;
+				int nx = kooF1.x1;
+				int ny = kooF1.y1;
+
+				kooF1.x1 = nx;
+				kooF1.x2 = nx;
+				kooF1.x3 = nx;
+				kooF1.x4 = nx;
+
+				kooF1.y1 = ny;
+				kooF1.y2 = ny + 1;
+				kooF1.y3 = ny + 2;
+				kooF1.y4 = ny + 3;
+			}
+			else if (counterPos == 3)
+			{
+			
+				int nx = kooF1.x1;
+				int ny = kooF1.y1;
+
+				kooF1.x1 = nx;
+				kooF1.x2 = nx + 1;
+				kooF1.x3 = nx + 2;
+				kooF1.x4 = nx + 3;
+
+				kooF1.y1 = ny;
+				kooF1.y2 = ny;
+				kooF1.y3 = ny;
+				kooF1.y4 = ny;
+				counterPos = 0;
+			}
+				
+			
+		
+		
+		dir = STOP;
+		
+		break;
+	}
 	
 	case LEFT:
 	{
@@ -495,6 +600,10 @@ void Logic()
 			kooF1.x3++;
 			kooF1.x4++;
 			dir = STOP;
+			if (kooF2.x4 > 18)
+			{
+				dir = FINISHED;
+			}
 		}
 			
 			
@@ -513,6 +622,10 @@ void Logic()
 			kooF2.x3++;
 			kooF2.x4++;
 			dir = STOP;
+			if (kooF2.x4 > 18)
+			{
+				dir = FINISHED;
+			}
 		}
 		
 		//FINISH MOVE FIGURE 2 DOWN
@@ -529,6 +642,10 @@ void Logic()
 			kooF3.x3++;
 			kooF3.x4++;
 			dir = STOP;
+			if (kooF3.x4 > 18)
+			{
+				dir = FINISHED;
+			}
 		}
 		
 		//FINISH MOVE FIGURE 3 DOWN
@@ -545,6 +662,10 @@ void Logic()
 			kooF4.x3++;
 			kooF4.x4++;
 			dir = STOP;
+			if (kooF4.x4 > 18)
+			{
+				dir = FINISHED;
+			}
 		}
 		
 		//FINISH MOVE FIGURE 4 DOWN
@@ -561,6 +682,11 @@ void Logic()
 			kooF5.x3++;
 			kooF5.x4++;
 			dir = STOP;
+			if (kooF5.x4 > 18)
+			{
+				figRand = 1;
+			}
+			
 		}
 		
 		//FINISH MOVE FIGURE 5 DOWN
@@ -578,6 +704,10 @@ void Logic()
 			kooF6.x3++;
 			kooF6.x4++;
 			dir = STOP;
+			if (kooF6.x4 == 18)
+			{
+				dir = FINISHED;
+			}
 		}
 		
 		//FINISH MOVE FIGURE 6 DOWN
