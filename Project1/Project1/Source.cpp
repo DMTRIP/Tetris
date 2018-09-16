@@ -19,9 +19,9 @@ int score = 0;
 int counter = 0;
 int counterPos = 0;
 
-int figRand = 5; // определяет какая фигура появится на поле
+/*int figRand = 5;*/ // определяет какая фигура появится на поле
 
-enum eDirection { STOP = 0, LEFT, RIGHT, DOWN, CHANGEPOS, FINISHED};
+enum eDirection { STOP = 0, LEFT, RIGHT, DOWN, CHANGEPOS, /*FINISHED*/};
 eDirection dir;
 
 
@@ -116,6 +116,8 @@ figuer_4 kooF4;
 figuer_5 kooF5;
 figuer_6 kooF6;
 
+
+
 void Setup();
 void Draw(char arr[][fieldWidth]); 
 void Input();
@@ -193,37 +195,33 @@ void Draw(char arr[][fieldWidth])
 			
 			
 			// FIGURE 1
-					arr[kooF1.x1][kooF1.y1] = 'x';
+					/*arr[kooF1.x1][kooF1.y1] = 'x';
 					arr[kooF1.x2][kooF1.y2] = 'x';
 					arr[kooF1.x3][kooF1.y3] = 'x';
-					arr[kooF1.x4][kooF1.y4] = 'x';
+					arr[kooF1.x4][kooF1.y4] = 'x';*/
 			
 			
 			//// FIGURE 2
-			//	arr[kooF2.x1][kooF2.y1] = 'x';
-			//	arr[kooF2.x2][kooF2.y2] = 'x';
-			//	arr[kooF2.x3][kooF2.y3] = 'x';
-			//	arr[kooF2.x4][kooF2.y4] = 'x';
-			//
-			//
+
+				/*arr[kooF2.x1][kooF2.y1] = 'x';
+				arr[kooF2.x2][kooF2.y2] = 'x';
+				arr[kooF2.x3][kooF2.y3] = 'x';
+				arr[kooF2.x4][kooF2.y4] = 'x';*/
 
 			//// FIGURE 3
-			//
-			//	arr[kooF3.x1][kooF3.y1] = 'x';
-			//	arr[kooF3.x2][kooF3.y2] = 'x';
-			//	arr[kooF3.x3][kooF3.y3] = 'x';
-			//	arr[kooF3.x4][kooF3.y4] = 'x';
-			//
-			//
+			
+				/*arr[kooF3.x1][kooF3.y1] = 'x';
+				arr[kooF3.x2][kooF3.y2] = 'x';
+				arr[kooF3.x3][kooF3.y3] = 'x';
+				arr[kooF3.x4][kooF3.y4] = 'x';*/
+			
 
 			//// FIGURE 4
-			//
-			//	arr[kooF4.x1][kooF4.y1] = 'x';
-			//	arr[kooF4.x2][kooF4.y2] = 'x';
-			//	arr[kooF4.x3][kooF4.y3] = 'x';
-			//	arr[kooF4.x4][kooF4.y4] = 'x';
-			//
-			//
+			
+				arr[kooF4.x1][kooF4.y1] = 'x';
+				arr[kooF4.x2][kooF4.y2] = 'x';
+				arr[kooF4.x3][kooF4.y3] = 'x';
+				arr[kooF4.x4][kooF4.y4] = 'x';
 
 			//// FIGURE 5
 			//
@@ -292,15 +290,28 @@ void Logic()
 	{
 	case CHANGEPOS:
 	{
-		
+
+
+		int nx = kooF1.x1;
+		int ny = kooF1.y1;
+
+		int nx2 = kooF1.x2;
+		int ny2 = kooF1.y2;
+
+		int nx3 = kooF1.x3;
+		int ny3 = kooF1.y3;
+
+		int nx4 = kooF1.x4;
+		int ny4 = kooF1.y4;
+
 		// CHANGEPOS for fig 1 
 
-		if (counterPos == 0)
+		/*if (counterPos == 0)
 		{
 			counterPos++;
 			
-			int nx = kooF1.x1;
-			int ny = kooF1.y1;
+			nx = kooF1.x1;
+			ny = kooF1.y1;
 
 			kooF1.x1 = nx;
 			kooF1.x2 = nx;
@@ -316,8 +327,8 @@ void Logic()
 		{
 			counterPos++;
 
-			int nx = kooF1.x1;
-			int ny = kooF1.y1;
+			 nx = kooF1.x1;
+			 ny = kooF1.y1;
 
 				kooF1.x1 = nx;
 				kooF1.x2 = nx - 1;
@@ -332,8 +343,9 @@ void Logic()
 			else if (counterPos == 2)
 			{
 				counterPos++;
-				int nx = kooF1.x1;
-				int ny = kooF1.y1;
+
+				 nx = kooF1.x1;
+				 ny = kooF1.y1;
 
 				kooF1.x1 = nx;
 				kooF1.x2 = nx;
@@ -348,8 +360,8 @@ void Logic()
 			else if (counterPos == 3)
 			{
 			
-				int nx = kooF1.x1;
-				int ny = kooF1.y1;
+				 nx = kooF1.x1;
+				 ny = kooF1.y1;
 
 				kooF1.x1 = nx;
 				kooF1.x2 = nx + 1;
@@ -360,11 +372,157 @@ void Logic()
 				kooF1.y2 = ny;
 				kooF1.y3 = ny;
 				kooF1.y4 = ny;
+
 				counterPos = 0;
-			}
+			}*/
 				
+
+		// CHANGEPOS for fig 2
 			
 		
+		/*if (counterPos == 0)
+		{
+
+			nx = kooF2.x1;
+			ny = kooF2.y1;
+
+			kooF2.x1 = nx;
+			kooF2.x2 = nx + 1;
+			kooF2.x3 = nx + 1;
+			kooF2.x4 = nx + 2;
+
+			kooF2.y1 = ny;
+			kooF2.y2 = ny + 1;
+			kooF2.y3 = ny;
+			kooF2.y4 = ny + 1;
+
+			counterPos++;
+		}
+		else if (counterPos == 1)
+		{
+
+			kooF2.x1 = nx;
+			kooF2.x2 = nx;
+			kooF2.x3 = nx - 1;
+			kooF2.x4 = nx - 1;
+
+			kooF2.y1 = ny - 2;
+			kooF2.y2 = ny - 1;
+			kooF2.y3 = ny - 1;
+			kooF2.y4 = ny;
+
+			counterPos = 0;
+
+		}*/
+		
+		// CHANGEPOS for fig 4
+		
+		if (counterPos == 0)
+		{
+			nx = kooF4.x1;
+			ny = kooF4.y1;
+
+			nx2 = kooF4.x2;
+			ny2 = kooF4.y2;
+
+			nx3 = kooF4.x3;
+			ny3 = kooF4.y3;
+
+			nx4 = kooF4.x4;
+			ny4 = kooF4.y4;
+
+			kooF4.x1 = nx;
+			kooF4.x2 = nx2;
+			kooF4.x3 = nx3;
+			kooF4.x4 = nx4 + 1;
+
+			kooF4.y1 = ny;
+			kooF4.y2 = ny2;
+			kooF4.y3 = ny3;
+			kooF4.y4 = ny4 + 1;
+
+			counterPos++;
+		}
+		else if (counterPos == 1)
+		{
+			nx = kooF4.x1;
+			ny = kooF4.y1;
+
+			nx2 = kooF4.x2;
+			ny2 = kooF4.y2;
+
+			nx3 = kooF4.x3;
+			ny3 = kooF4.y3;
+
+			nx4 = kooF4.x4;
+			ny4 = kooF4.y4;
+
+
+			kooF4.x1 = nx + 2;
+			kooF4.x2 = nx2;
+			kooF4.x3 = nx3;
+			kooF4.x4 = nx4 - 1;
+
+			kooF4.y1 = ny;
+			kooF4.y2 = ny2;
+			kooF4.y3 = ny3;
+			kooF4.y4 = ny4 - 1;
+
+			counterPos++;
+		}
+		
+		else if (counterPos == 2)
+		{
+			nx = kooF4.x1;
+			ny = kooF4.y1;
+
+			nx2 = kooF4.x2;
+			ny2 = kooF4.y2;
+
+			nx3 = kooF4.x3;
+			ny3 = kooF4.y3;
+
+			nx4 = kooF4.x4;
+			ny4 = kooF4.y4;
+
+			kooF4.x1 = nx - 2;
+			kooF4.x2 = nx2 + 1;
+			kooF4.x3 = nx3;
+			kooF4.x4 = nx4;
+
+			kooF4.y1 = ny;
+			kooF4.y2 = ny2 - 1;
+			kooF4.y3 = ny3;
+			kooF4.y4 = ny4;
+
+			counterPos++;
+		}
+		else if (counterPos == 3)
+		{
+			nx = kooF4.x1;
+			ny = kooF4.y1;
+
+			nx2 = kooF4.x2;
+			ny2 = kooF4.y2;
+
+			nx3 = kooF4.x3;
+			ny3 = kooF4.y3;
+
+			nx4 = kooF4.x4;
+			ny4 = kooF4.y4;
+
+			kooF4.x1 = nx;
+			kooF4.x2 = nx2 - 1;
+			kooF4.x3 = nx3;
+			kooF4.x4 = nx4;
+
+			kooF4.y1 = ny;
+			kooF4.y2 = ny2  + 1;
+			kooF4.y3 = ny3;
+			kooF4.y4 = ny4;
+
+			counterPos = 0;
+		}
 		
 		dir = STOP;
 		
@@ -600,10 +758,7 @@ void Logic()
 			kooF1.x3++;
 			kooF1.x4++;
 			dir = STOP;
-			if (kooF2.x4 > 18)
-			{
-				dir = FINISHED;
-			}
+	
 		}
 			
 			
@@ -622,10 +777,7 @@ void Logic()
 			kooF2.x3++;
 			kooF2.x4++;
 			dir = STOP;
-			if (kooF2.x4 > 18)
-			{
-				dir = FINISHED;
-			}
+
 		}
 		
 		//FINISH MOVE FIGURE 2 DOWN
@@ -642,10 +794,7 @@ void Logic()
 			kooF3.x3++;
 			kooF3.x4++;
 			dir = STOP;
-			if (kooF3.x4 > 18)
-			{
-				dir = FINISHED;
-			}
+			
 		}
 		
 		//FINISH MOVE FIGURE 3 DOWN
@@ -662,10 +811,7 @@ void Logic()
 			kooF4.x3++;
 			kooF4.x4++;
 			dir = STOP;
-			if (kooF4.x4 > 18)
-			{
-				dir = FINISHED;
-			}
+			
 		}
 		
 		//FINISH MOVE FIGURE 4 DOWN
@@ -682,10 +828,7 @@ void Logic()
 			kooF5.x3++;
 			kooF5.x4++;
 			dir = STOP;
-			if (kooF5.x4 > 18)
-			{
-				figRand = 1;
-			}
+			
 			
 		}
 		
@@ -704,10 +847,7 @@ void Logic()
 			kooF6.x3++;
 			kooF6.x4++;
 			dir = STOP;
-			if (kooF6.x4 == 18)
-			{
-				dir = FINISHED;
-			}
+			
 		}
 		
 		//FINISH MOVE FIGURE 6 DOWN
