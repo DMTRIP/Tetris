@@ -19,6 +19,8 @@ int score = 0;
 int counter = 0;
 int counterPos = 0;
 
+
+
 /*int figRand = 5;*/ // определяет какая фигура появится на поле
 
 enum eDirection { STOP = 0, LEFT, RIGHT, DOWN, CHANGEPOS, /*FINISHED*/};
@@ -116,13 +118,26 @@ figuer_4 kooF4;
 figuer_5 kooF5;
 figuer_6 kooF6;
 
+// koo
 
+int nx;
+int ny;
 
+int nx2;
+int ny2;
+
+int nx3;
+int ny3;
+
+int nx4;
+int ny4;
+
+void getKoo(int);
 void Setup();
 void Draw(char arr[][fieldWidth]); 
 void Input();
 void Logic();
-
+int a, b, c;
 
 char field[fieldHeight][fieldWidth];
 
@@ -161,10 +176,12 @@ int main()
 	
 	while (!gameOver)
 	{
+		getKoo(1);
 		Setup();
 		Draw(field);
 		Input();
 		Logic();
+		
 	}
 	
 	
@@ -195,10 +212,10 @@ void Draw(char arr[][fieldWidth])
 			
 			
 			// FIGURE 1
-					/*arr[kooF1.x1][kooF1.y1] = 'x';
+					arr[kooF1.x1][kooF1.y1] = 'x';
 					arr[kooF1.x2][kooF1.y2] = 'x';
 					arr[kooF1.x3][kooF1.y3] = 'x';
-					arr[kooF1.x4][kooF1.y4] = 'x';*/
+					arr[kooF1.x4][kooF1.y4] = 'x';
 			
 			
 			//// FIGURE 2
@@ -218,26 +235,26 @@ void Draw(char arr[][fieldWidth])
 
 			//// FIGURE 4
 			
-				arr[kooF4.x1][kooF4.y1] = 'x';
+				/*arr[kooF4.x1][kooF4.y1] = 'x';
 				arr[kooF4.x2][kooF4.y2] = 'x';
 				arr[kooF4.x3][kooF4.y3] = 'x';
-				arr[kooF4.x4][kooF4.y4] = 'x';
+				arr[kooF4.x4][kooF4.y4] = 'x';*/
 
 			//// FIGURE 5
 			//
-			//	arr[kooF5.x1][kooF5.y1] = 'x';
-			//	arr[kooF5.x2][kooF5.y2] = 'x';
-			//	arr[kooF5.x3][kooF5.y3] = 'x';
-			//	arr[kooF5.x4][kooF5.y4] = 'x';
+				/*arr[kooF5.x1][kooF5.y1] = 'x';
+				arr[kooF5.x2][kooF5.y2] = 'x';
+				arr[kooF5.x3][kooF5.y3] = 'x';
+				arr[kooF5.x4][kooF5.y4] = 'x';*/
 			//
 			//
 			//
 			//// FIGURE 6
 			//
-			//	arr[kooF6.x1][kooF6.y1] = 'x';
-			//	arr[kooF6.x2][kooF6.y2] = 'x';
-			//	arr[kooF6.x3][kooF6.y3] = 'x';
-			//	arr[kooF6.x4][kooF6.y4] = 'x';
+				/*arr[kooF6.x1][kooF6.y1] = 'x';
+				arr[kooF6.x2][kooF6.y2] = 'x';
+				arr[kooF6.x3][kooF6.y3] = 'x';
+				arr[kooF6.x4][kooF6.y4] = 'x';*/
 			
 			
 
@@ -292,89 +309,39 @@ void Logic()
 	{
 
 
-		int nx = kooF1.x1;
-		int ny = kooF1.y1;
+		
 
-		int nx2 = kooF1.x2;
-		int ny2 = kooF1.y2;
-
-		int nx3 = kooF1.x3;
-		int ny3 = kooF1.y3;
-
-		int nx4 = kooF1.x4;
-		int ny4 = kooF1.y4;
-
-		// CHANGEPOS for fig 1 
+		//CHANGEPOS for fig 1 
 
 		/*if (counterPos == 0)
 		{
 			counterPos++;
+			getKoo(1);
 			
-			nx = kooF1.x1;
-			ny = kooF1.y1;
+			kooF1.x1 = nx + 1;
+			kooF1.x2 = nx2;
+			kooF1.x3 = nx3 - 1;
+			kooF1.x4 = nx4 - 2;
 
-			kooF1.x1 = nx;
-			kooF1.x2 = nx;
-			kooF1.x3 = nx;
-			kooF1.x4 = nx;
-
-			kooF1.y1 = ny;
-			kooF1.y2 = ny - 1;
-			kooF1.y3 = ny - 2;
-			kooF1.y4 = ny - 3;
+			kooF1.y1 = ny - 1;
+			kooF1.y2 = ny2;
+			kooF1.y3 = ny3 + 1;
+			kooF1.y4 = ny4 + 2;
 		}
 		else if (counterPos == 1)
 		{
-			counterPos++;
+			kooF1.x1 = nx - 1;
+			kooF1.x2 = nx2;
+			kooF1.x3 = nx3 + 1;
+			kooF1.x4 = nx4 + 2;
 
-			 nx = kooF1.x1;
-			 ny = kooF1.y1;
+			kooF1.y1 = ny + 1;
+			kooF1.y2 = ny2;
+			kooF1.y3 = ny3 - 1;
+			kooF1.y4 = ny4 - 2;
 
-				kooF1.x1 = nx;
-				kooF1.x2 = nx - 1;
-				kooF1.x3 = nx - 2;
-				kooF1.x4 = nx - 3;
-
-				kooF1.y1 = ny;
-				kooF1.y2 = ny;
-				kooF1.y3 = ny;
-				kooF1.y4 = ny; 
-		}
-			else if (counterPos == 2)
-			{
-				counterPos++;
-
-				 nx = kooF1.x1;
-				 ny = kooF1.y1;
-
-				kooF1.x1 = nx;
-				kooF1.x2 = nx;
-				kooF1.x3 = nx;
-				kooF1.x4 = nx;
-
-				kooF1.y1 = ny;
-				kooF1.y2 = ny + 1;
-				kooF1.y3 = ny + 2;
-				kooF1.y4 = ny + 3;
-			}
-			else if (counterPos == 3)
-			{
-			
-				 nx = kooF1.x1;
-				 ny = kooF1.y1;
-
-				kooF1.x1 = nx;
-				kooF1.x2 = nx + 1;
-				kooF1.x3 = nx + 2;
-				kooF1.x4 = nx + 3;
-
-				kooF1.y1 = ny;
-				kooF1.y2 = ny;
-				kooF1.y3 = ny;
-				kooF1.y4 = ny;
-
-				counterPos = 0;
-			}*/
+			counterPos = 0;
+		}*/
 				
 
 		// CHANGEPOS for fig 2
@@ -417,7 +384,7 @@ void Logic()
 		
 		// CHANGEPOS for fig 4
 		
-		if (counterPos == 0)
+		/*if (counterPos == 0)
 		{
 			nx = kooF4.x1;
 			ny = kooF4.y1;
@@ -522,8 +489,78 @@ void Logic()
 			kooF4.y4 = ny4;
 
 			counterPos = 0;
-		}
+		}*/
 		
+		// CHANGEPOS for fig 5
+
+		/*if(counterPos == 0)
+		{
+			counterPos++;
+
+			getKoo(5);
+
+			kooF5.x1 = nx;
+			kooF5.x2 = nx2 - 1;
+			kooF5.x3 = nx3 + 1;
+			kooF5.x4 = nx4;
+
+			kooF5.y1 = ny;
+			kooF5.y2 = ny2 - 1;
+			kooF5.y3 = ny3  - 1;
+			kooF5.y4 = ny4;
+
+		}
+		else if (counterPos == 1)
+		{
+			counterPos++;
+			getKoo(5);
+
+			kooF5.x1 = nx;
+			kooF5.x2 = nx2;
+			kooF5.x3 = nx3 - 1;
+			kooF5.x4 = nx4 - 1;
+
+			kooF5.y1 = ny;
+			kooF5.y2 = ny2;
+			kooF5.y3 = ny3 + 1;
+			kooF5.y4 = ny4 - 1;
+
+		}
+		else if (counterPos == 2)
+		{
+			counterPos++;
+			getKoo(5);
+
+			kooF5.x1 = nx + 2;
+			kooF5.x2 = nx2;
+			kooF5.x3 = nx3;
+			kooF5.x4 = nx4 + 2;
+
+			kooF5.y1 = ny + 1;
+			kooF5.y2 = ny2;
+			kooF5.y3 = ny3;
+			kooF5.y4 = ny4 + 1;
+
+		}
+		else if (counterPos == 3)
+		{
+			counterPos++;
+			getKoo(5);
+
+			kooF5.x1 = nx - 2;
+			kooF5.x2 = nx2 + 1;
+			kooF5.x3 = nx3;
+			kooF5.x4 = nx4 - 1;
+
+			kooF5.y1 = ny - 1;
+			kooF5.y2 = ny2 + 1;
+			kooF5.y3 = ny3;
+			kooF5.y4 = ny4;
+
+			counterPos = 0;
+		}*/
+
+
 		dir = STOP;
 		
 		break;
@@ -856,4 +893,93 @@ void Logic()
 
 	
 	}
+}
+
+void getKoo(int a)
+{
+	if (a == 1)
+	{
+		nx = kooF1.x1;
+		ny = kooF1.y1;
+
+		nx2 = kooF1.x2;
+		ny2 = kooF1.y2;
+				  
+		nx3 = kooF1.x3;
+		ny3 = kooF1.y3;
+				  
+		nx4 = kooF1.x4;
+		ny4 = kooF1.y4;
+	}
+	else if (a == 2)
+	{
+		nx = kooF2.x1;
+		ny = kooF2.y1;
+
+		nx2 = kooF2.x2;
+		ny2 = kooF2.y2;
+				  
+		nx3 = kooF2.x3;
+		ny3 = kooF2.y3;
+				  
+		nx4 = kooF2.x4;
+		ny4 = kooF2.y4;
+	}
+	else if (a == 3)
+	{
+		nx = kooF3.x1;
+		ny = kooF3.y1;
+
+		nx2 = kooF3.x2;
+		ny2 = kooF3.y2;
+
+		nx3 = kooF3.x3;
+		ny3 = kooF3.y3;
+
+		nx4 = kooF3.x4;
+		ny4 = kooF3.y4;
+	}
+	else if (a == 4)
+	{
+		nx = kooF4.x1;
+		ny = kooF4.y1;
+
+		nx2 = kooF4.x2;
+		ny2 = kooF4.y2;
+
+		nx3 = kooF4.x3;
+		ny3 = kooF4.y3;
+
+		nx4 = kooF5.x4;
+		ny4 = kooF5.y4;
+	}
+	else if (a == 5)
+	{
+		nx = kooF5.x1;
+		ny = kooF5.y1;
+
+		nx2 = kooF5.x2;
+		ny2 = kooF5.y2;
+
+		nx3 = kooF5.x3;
+		ny3 = kooF5.y3;
+
+		nx4 = kooF5.x4;
+		ny4 = kooF5.y4;
+	}
+	else if (a == 6)
+	{
+		nx = kooF6.x1;
+		ny = kooF6.y1;
+
+		nx2 = kooF6.x2;
+		ny2 = kooF6.y2;
+
+		nx3 = kooF6.x3;
+		ny3 = kooF6.y3;
+
+		nx4 = kooF6.x4;
+		ny4 = kooF6.y4;
+	}
+	
 }
