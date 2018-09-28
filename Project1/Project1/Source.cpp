@@ -131,6 +131,18 @@ int ny3;
 
 int nx4;
 int ny4;
+//
+int & pnx = nx;
+int & pny = ny;
+
+int & pnx2 = nx2;
+int & pny2 = ny2;
+
+int & pnx3 = nx3;
+int & pny3 = ny3;
+
+int & pnx4 = nx4;
+int & pny4 = ny4;
 
 void getKoo(int);
 void Setup();
@@ -237,18 +249,18 @@ void Draw(char arr[][fieldWidth])
 			
 
 			//// FIGURE 4
-			/*arr[kooF4.x1][kooF4.y1] = 'x';
+			arr[kooF4.x1][kooF4.y1] = 'x';
 			arr[kooF4.x2][kooF4.y2] = 'x';
 			arr[kooF4.x3][kooF4.y3] = 'x';
-			arr[kooF4.x4][kooF4.y4] = 'x';*/
+			arr[kooF4.x4][kooF4.y4] = 'x';
 				
 
 			//// FIGURE 5
 			//
-			arr[kooF5.x1][kooF5.y1] = '1';
+			/*arr[kooF5.x1][kooF5.y1] = '1';
 			arr[kooF5.x2][kooF5.y2] = '2';
 			arr[kooF5.x3][kooF5.y3] = '3';
-			arr[kooF5.x4][kooF5.y4] = '4';
+			arr[kooF5.x4][kooF5.y4] = '4';*/
 			
 			//// FIGURE 6
 			//
@@ -308,7 +320,7 @@ void Logic()
 	{
 	case CHANGEPOS:
 	{
-
+		
 
 		
 
@@ -391,23 +403,18 @@ void Logic()
 		
 		// CHANGEPOS for fig 4
 		
-		/*if (kooF4.y3 > 0 && kooF4.y3 < 9 && kooF4.x3 < 18)
+		if (kooF4.y3 > 0 && kooF4.y3 < 9 && kooF4.x3 < 18)
 		{
+			
 			if (counterPos == 0)
 			{
-				nx = kooF4.x1;
-				ny = kooF4.y1;
-				nx2 = kooF4.x2;
-				ny2 = kooF4.y2;
-				nx3 = kooF4.x3;
-				ny3 = kooF4.y3;
-				nx4 = kooF4.x4;
-				ny4 = kooF4.y4;
+				getKoo(4);
 
 				kooF4.x1 = nx;
 				kooF4.x2 = nx2;
 				kooF4.x3 = nx3;
 				kooF4.x4 = nx4 + 1;
+
 				kooF4.y1 = ny;
 				kooF4.y2 = ny2;
 				kooF4.y3 = ny3;
@@ -416,19 +423,13 @@ void Logic()
 			}
 			else if (counterPos == 1)
 			{
-				nx = kooF4.x1;
-				ny = kooF4.y1;
-				nx2 = kooF4.x2;
-				ny2 = kooF4.y2;
-				nx3 = kooF4.x3;
-				ny3 = kooF4.y3;
-				nx4 = kooF4.x4;
-				ny4 = kooF4.y4;
-
+				
+				getKoo(4);
 				kooF4.x1 = nx + 2;
 				kooF4.x2 = nx2;
 				kooF4.x3 = nx3;
 				kooF4.x4 = nx4 - 1;
+
 				kooF4.y1 = ny;
 				kooF4.y2 = ny2;
 				kooF4.y3 = ny3;
@@ -438,19 +439,13 @@ void Logic()
 
 			else if (counterPos == 2)
 			{
-				nx = kooF4.x1;
-				ny = kooF4.y1;
-				nx2 = kooF4.x2;
-				ny2 = kooF4.y2;
-				nx3 = kooF4.x3;
-				ny3 = kooF4.y3;
-				nx4 = kooF4.x4;
-				ny4 = kooF4.y4;
-
+				
+				getKoo(4);
 				kooF4.x1 = nx - 2;
 				kooF4.x2 = nx2 + 1;
 				kooF4.x3 = nx3;
 				kooF4.x4 = nx4;
+
 				kooF4.y1 = ny;
 				kooF4.y2 = ny2 - 1;
 				kooF4.y3 = ny3;
@@ -459,26 +454,20 @@ void Logic()
 			}
 			else if (counterPos == 3)
 			{
-				nx = kooF4.x1;
-				ny = kooF4.y1;
-				nx2 = kooF4.x2;
-				ny2 = kooF4.y2;
-				nx3 = kooF4.x3;
-				ny3 = kooF4.y3;
-				nx4 = kooF4.x4;
-				ny4 = kooF4.y4;
-
+			
+				getKoo(4);
 				kooF4.x1 = nx;
 				kooF4.x2 = nx2 - 1;
 				kooF4.x3 = nx3;
 				kooF4.x4 = nx4;
+
 				kooF4.y1 = ny;
 				kooF4.y2 = ny2 + 1;
 				kooF4.y3 = ny3;
 				kooF4.y4 = ny4;
 				counterPos = 0;
 			}
-		}*/
+		}
 		
 
 			
@@ -914,87 +903,84 @@ void getKoo(int a)
 {
 	if (a == 1)
 	{
-		nx = kooF1.x1;
-		ny = kooF1.y1;
+		pnx = kooF1.x1;
+		pny = kooF1.y1;
 
-		nx2 = kooF1.x2;
-		ny2 = kooF1.y2;
+		pnx2 = kooF1.x2;
+		pny2 = kooF1.y2;
 				  
-		nx3 = kooF1.x3;
-		ny3 = kooF1.y3;
+		pnx3 = kooF1.x3;
+		pny3 = kooF1.y3;
 				  
-		nx4 = kooF1.x4;
-		ny4 = kooF1.y4;
+		pnx4 = kooF1.x4;
+		pny4 = kooF1.y4;
 	}
 	else if (a == 2)
 	{
-		nx = kooF2.x1;
-		ny = kooF2.y1;
+		pnx = kooF2.x1;
+		pny = kooF2.y1;
 
-		nx2 = kooF2.x2;
-		ny2 = kooF2.y2;
+		pnx2 = kooF2.x2;
+		pny2 = kooF2.y2;
 				  
-		nx3 = kooF2.x3;
-		ny3 = kooF2.y3;
+		pnx3 = kooF2.x3;
+		pny3 = kooF2.y3;
 				  
-		nx4 = kooF2.x4;
-		ny4 = kooF2.y4;
+		pnx4 = kooF2.x4;
+		pny4 = kooF2.y4;
 	}
 	else if (a == 3)
 	{
-		nx = kooF3.x1;
-		ny = kooF3.y1;
+		pnx = kooF3.x1;
+		pny = kooF3.y1;
 
-		nx2 = kooF3.x2;
-		ny2 = kooF3.y2;
+		pnx2 = kooF3.x2;
+		pny2 = kooF3.y2;
 
-		nx3 = kooF3.x3;
-		ny3 = kooF3.y3;
+		pnx3 = kooF3.x3;
+		pny3 = kooF3.y3;
 
-		nx4 = kooF3.x4;
-		ny4 = kooF3.y4;
+		pnx4 = kooF3.x4;
+		pny4 = kooF3.y4;
 	}
 	else if (a == 4)
 	{
-		nx = kooF4.x1;
-		ny = kooF4.y1;
-
-		nx2 = kooF4.x2;
-		ny2 = kooF4.y2;
-
-		nx3 = kooF4.x3;
-		ny3 = kooF4.y3;
-
-		nx4 = kooF5.x4;
-		ny4 = kooF5.y4;
+		pnx = kooF4.x1;
+		pny = kooF4.y1;
+		pnx2 = kooF4.x2;
+		pny2 = kooF4.y2;
+		pnx3 = kooF4.x3;
+		pny3 = kooF4.y3;
+		pnx4 = kooF4.x4;
+		pny4 = kooF4.y4;
 	}
 	else if (a == 5)
 	{
-		nx = kooF5.x1;
-		ny = kooF5.y1;
+		pnx = kooF5.x1;
+		pny = kooF5.y1;
 
-		nx2 = kooF5.x2;
-		ny2 = kooF5.y2;
+		pnx2 = kooF5.x2;
+		pny2 = kooF5.y2;
 
-		nx3 = kooF5.x3;
-		ny3 = kooF5.y3;
+		pnx3 = kooF5.x3;
+		pny3 = kooF5.y3;
 
-		nx4 = kooF5.x4;
-		ny4 = kooF5.y4;
+		pnx4 = kooF5.x4;
+		pny4 = kooF5.y4;
 	}
 	else if (a == 6)
 	{
-		nx = kooF6.x1;
-		ny = kooF6.y1;
+		pnx = kooF6.x1;
+		pny = kooF6.y1;
 
-		nx2 = kooF6.x2;
-		ny2 = kooF6.y2;
+		pnx2 = kooF6.x2;
+		pny2 = kooF6.y2;
 
-		nx3 = kooF6.x3;
-		ny3 = kooF6.y3;
+		pnx3 = kooF6.x3;
+		pny3 = kooF6.y3;
 
-		nx4 = kooF6.x4;
-		ny4 = kooF6.y4;
+		pnx4 = kooF6.x4;
+		pny4 = kooF6.y4;
 	}
 	
 }
