@@ -19,6 +19,12 @@ int score = 0;
 int counter = 0;
 int counterPos = 0;
 
+int RandSize;
+int oneRandFigureArr = 0;
+int * poneRandFigureArr = &oneRandFigureArr;
+int RandFigure[100];
+int BuffRandFigure[100];
+
 
 
 /*int figRand = 5;*/ // определяет какая фигура появится на поле
@@ -76,9 +82,9 @@ void Draw(char arr[][fieldWidth], int);
 void Input();
 void Logic();
 void getKoo(figure_1 &f);
-
+void DrawNextFigure(int a);
 char field[fieldHeight][fieldWidth];
-
+void ShowNextFig(char[][4]);
 void finished();
 
 void InitFig1(figure_1 &f)
@@ -167,10 +173,10 @@ void InitFig6(figure_1 &f)
 }
 void RememerFigure()
 {
-	field[kooF1.x1][kooF1.y1] = 'x';
-	field[kooF1.x2][kooF1.y2] = 'x';
-	field[kooF1.x3][kooF1.y3] = 'x';
-	field[kooF1.x4][kooF1.y4] = 'x';
+	field[kooF1.x1][kooF1.y1] = '1';
+	field[kooF1.x2][kooF1.y2] = '2';
+	field[kooF1.x3][kooF1.y3] = '3';
+	field[kooF1.x4][kooF1.y4] = '4';
 }
 
 void ClearFigure()
@@ -180,16 +186,25 @@ void ClearFigure()
 	field[kooF1.x3][kooF1.y3] = ' ';
 	field[kooF1.x4][kooF1.y4] = ' ';
 }
+                
+int RandFigNumb = rand() % 6;
+int figNumber;
+int* pFigNumber = &figNumber;
 
-int* pFigNumber;
+
 int main()
 {
-	srand(time(0));
+	figNumber = 0;
 
 	while (true)
 	{
-		int figNumber = 0;// rand() % 6;
-		pFigNumber = &figNumber;
+		//рандомим фигуру 
+		if (kooF1.y3 >= 0)
+		{
+			srand(time(0));
+			RandFigNumb = rand() % 6;
+		}
+		
 		switch (figNumber)
 		{
 		case 0: InitFig1(kooF1); break;
@@ -197,7 +212,7 @@ int main()
 		case 2: InitFig3(kooF1); break;
 		case 3: InitFig4(kooF1); break;
 		case 4: InitFig5(kooF1); break;
-		case 5: InitFig5(kooF1); break;
+		case 5: InitFig6(kooF1); break;
 		}
 
 		while (!gameOver)
@@ -210,6 +225,7 @@ int main()
 			finished();
 			if (dir == FINISHED)
 			{
+				figNumber = RandFigNumb;
 				RememerFigure();
 				break;
 			}
@@ -220,13 +236,14 @@ int main()
 void Setup()
 {
 	gameOver = false;
-	//dir = DOWN;
+	dir = DOWN;
 }
 void Draw(char arr[][fieldWidth], int figNumber)
 {
 
 	int time = 0;
 	int randa = 1;
+	DrawNextFigure(RandFigNumb);
 
 	cout << "-----------------------\n";
 
@@ -235,6 +252,7 @@ void Draw(char arr[][fieldWidth], int figNumber)
 		cout << '|';
 		for (int j = 0; j < fieldWidth; j++)
 		{
+			
 			RememerFigure();
 			cout << setw(2) << arr[i][j];
 		}
@@ -332,12 +350,15 @@ void Logic()
 
 	case CHANGEPOS:
 	{
+	
 		if ((*pFigNumber) == 0)
 		{
 			//first figure
 			if (kooF1.y4 < 10 && kooF1.y1 < 8 && kooF1.y1 >= 0 && kooF1.y4  > 0 && kooF1.x1 < 17)//fix вихода фигуры за поле 
 			{
-				if (counterPos == 0)
+				int count = 0;
+				int& pcount = count;
+				if (count == 0)
 				{
 
 					getKoo(kooF1);
@@ -351,10 +372,10 @@ void Logic()
 					kooF1.y2 = ny2;
 					kooF1.y3 = ny3 + 1;
 					kooF1.y4 = ny4 + 2;
-					counterPos++;
-
+					pcount++;
+					
 				}
-				else if (counterPos == 1)
+				else if (pcount == 1)
 				{
 					getKoo(kooF1);
 					kooF1.x1 = nx - 1;
@@ -367,7 +388,7 @@ void Logic()
 					kooF1.y3 = ny3 - 1;
 					kooF1.y4 = ny4 - 2;
 
-					counterPos = 0;
+					pcount = 0;
 				}
 			}
 		}
@@ -592,4 +613,99 @@ void getKoo(figure_1 &f)
 
 	pnx4 = f.x4;
 	pny4 = f.y4;
+}
+void DrawNextFigure(int a)
+{
+	const short sz = 4, sz1 = 4;
+	char showfig[sz][sz1] =
+	{
+		' ','x',' ',' ',
+		' ','x',' ',' ',
+		' ','x',' ',' ',
+		' ','x',' ',' ',
+	};
+	switch (a)
+	{
+	case 0:
+	{
+		ShowNextFig(showfig);
+		break;
+	}
+	case 1:
+	{
+		char showfig[sz][sz1] =
+		{
+			' ',' ',' ',' ',
+			' ','x','x',' ',
+			'x','x',' ',' ',
+			' ',' ',' ',' ',
+		};
+		ShowNextFig(showfig);
+		
+		break;
+	}
+	case 2:
+	{
+		char showfig[sz][sz1] =
+		{
+			' ',' ',' ',' ',
+			' ','x','x',' ',
+			' ','x','x',' ',
+			' ',' ',' ',' ',
+		};
+		ShowNextFig(showfig);
+		break;
+	}
+	case 3:
+	{
+		char showfig[sz][sz1] =
+		{
+			' ',' ',' ',' ',
+			' ','x',' ',' ',
+			'x','x','x',' ',
+			' ',' ',' ',' ',
+		};
+		ShowNextFig(showfig);
+		break;
+	}
+	case 4:
+	{
+		char showfig[sz][sz1] =
+		{
+			' ',' ',' ',' ',
+			'x',' ',' ',' ',
+			'x','x','x',' ',
+			' ',' ',' ',' ',
+		};
+		ShowNextFig(showfig);
+		break;
+	}
+	case 5:
+	{
+		char showfig[sz][sz1] =
+		{
+			' ','x',' ',' ',
+			' ','x','x',' ',
+			' ',' ','x',' ',
+			' ',' ',' ',' ',
+		};
+		ShowNextFig(showfig);
+		break;
+	}
+	}
+}
+
+void ShowNextFig(char arr[][4])
+{
+	cout << "----------\n";
+	for (short i = 0; i < 4; i++)
+	{
+		cout << "|";
+		for (short j = 0; j < 4; j++)
+		{
+			cout << setw(2) << arr[i][j];
+		}
+		cout << "|";
+		cout << endl;
+	}
 }
