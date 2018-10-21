@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="blanks.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="Tetris2.0.1.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

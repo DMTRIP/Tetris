@@ -14,22 +14,41 @@ bool gameOver;
 
 int const fieldWidth = 10;
 int const fieldHeight = 20;
-int score = 0;
 
-int counter = 0;
-int counterPos = 0;
 
-int RandSize;
-int oneRandFigureArr = 0;
-int * poneRandFigureArr = &oneRandFigureArr;
-int RandFigure[100];
-int BuffRandFigure[100];
+int nx;
+int ny;
+
+int nx2;
+int ny2;
+
+int nx3;
+int ny3;
+
+int nx4;
+int ny4;
+
+int & pnx = nx;
+int & pny = ny;
+
+int & pnx2 = nx2;
+int & pny2 = ny2;
+
+int & pnx3 = nx3;
+int & pny3 = ny3;
+
+int & pnx4 = nx4;
+int & pny4 = ny4;
+
+
+int counter_pos_1 = 0;
+int& pcounter_pos_1 = counter_pos_1;
 
 
 
 /*int figRand = 5;*/ // определяет какая фигура появится на поле
 
-enum eDirection { STOP = 0, LEFT, RIGHT, DOWN, CHANGEPOS, FINISHED };
+enum eDirection { STOP = 0, LEFT, RIGHT, DOWN, CHANGEPOS, FINISHED,SCORE };
 eDirection dir;
 
 
@@ -50,42 +69,19 @@ struct figure_1
 figure_1 kooF1;
 
 
-// koo
 
-int nx;
-int ny;
-
-int nx2;
-int ny2;
-
-int nx3;
-int ny3;
-
-int nx4;
-int ny4;
-//
-int & pnx = nx;
-int & pny = ny;
-
-int & pnx2 = nx2;
-int & pny2 = ny2;
-
-int & pnx3 = nx3;
-int & pny3 = ny3;
-
-int & pnx4 = nx4;
-int & pny4 = ny4;
 
 ///void getKoo(int);
 void Setup();
 void Draw(char arr[][fieldWidth], int);
 void Input();
-void Logic();
+void Logic(int numberFigure,int& counterPos);
 void getKoo(figure_1 &f);
 void DrawNextFigure(int a);
 char field[fieldHeight][fieldWidth];
 void ShowNextFig(char[][4]);
-void finished();
+void finished(int numberFigure,int& counterPos);
+void score();
 
 void InitFig1(figure_1 &f)
 {
@@ -131,16 +127,16 @@ void InitFig3(figure_1 &f)
 }
 void InitFig4(figure_1 &f)
 {
-	f.x1 = 0;
+	f.x1 = 1;
 	f.y1 = fieldWidth / 2;
 
-	f.x2 = 1;
+	f.x2 = 0;
 	f.y2 = (fieldWidth / 2) + 1;
 
-	f.x3 = 1;
+	f.x3 = 0;
 	f.y3 = fieldWidth / 2;
 
-	f.x4 = 1;
+	f.x4 = 0;
 	f.y4 = (fieldWidth / 2) - 1;
 }
 void InitFig5(figure_1 &f)
@@ -187,14 +183,15 @@ void ClearFigure()
 	field[kooF1.x4][kooF1.y4] = ' ';
 }
                 
-int RandFigNumb = rand() % 6;
+int RandFigNumb = rand() % 5;
 int figNumber;
 int* pFigNumber = &figNumber;
 
 
 int main()
 {
-	figNumber = 0;
+	//pcounter_pos_1 = 0;
+	figNumber = 4;
 
 	while (true)
 	{
@@ -202,7 +199,7 @@ int main()
 		if (kooF1.y3 >= 0)
 		{
 			srand(time(0));
-			RandFigNumb = rand() % 6;
+			RandFigNumb = rand() % 5;
 		}
 		
 		switch (figNumber)
@@ -212,7 +209,7 @@ int main()
 		case 2: InitFig3(kooF1); break;
 		case 3: InitFig4(kooF1); break;
 		case 4: InitFig5(kooF1); break;
-		case 5: InitFig6(kooF1); break;
+		//case 5: InitFig6(kooF1); break;
 		}
 
 		while (!gameOver)
@@ -221,11 +218,13 @@ int main()
 			Setup();
 			Draw(field, figNumber);
 			Input();
-			Logic();
-			finished();
+			Logic(figNumber,pcounter_pos_1);
+			finished(figNumber,pcounter_pos_1);
+			//score();
 			if (dir == FINISHED)
 			{
-				figNumber = RandFigNumb;
+				pcounter_pos_1 = 0;
+				//figNumber = RandFigNumb;
 				RememerFigure();
 				break;
 			}
@@ -236,13 +235,14 @@ int main()
 void Setup()
 {
 	gameOver = false;
-	dir = DOWN;
+	//dir = DOWN;
 }
 void Draw(char arr[][fieldWidth], int figNumber)
 {
 
 	int time = 0;
 	int randa = 1;
+	cout<<"fig: "<<figNumber<<endl;
 	DrawNextFigure(RandFigNumb);
 
 	cout << "-----------------------\n";
@@ -294,7 +294,7 @@ void Input()
 	}
 }
 
-void Logic()
+void Logic(int numberFigure, int& counterPos)
 {
 	switch (dir)
 	{
@@ -304,11 +304,122 @@ void Logic()
 		//  STATR MOVE FIGURE  LEFT
 		if (kooF1.y1 > 0 && kooF1.y2 > 0 && kooF1.y3 > 0 && kooF1.y4 > 0)
 		{
-			kooF1.y1--;
-			kooF1.y2--;
-			kooF1.y3--;
-			kooF1.y4--;
-			dir = STOP;
+			if (numberFigure == 0)
+			{
+				if (counterPos == 0)
+				{
+					if (!(field[kooF1.x1][kooF1.y1 - 1] == 'x' || field[kooF1.x2][kooF1.y2 - 1] == 'x' || field[kooF1.x3][kooF1.y3 - 1] == 'x' || field[kooF1.x4][kooF1.y4 - 1] == 'x'))
+					{
+						kooF1.y1--;
+						kooF1.y2--;
+						kooF1.y3--;
+						kooF1.y4--;
+						dir = STOP;
+					}
+
+				}
+				else if (counterPos == 1)
+				{
+					if (!(field[kooF1.x1][kooF1.y1 - 1] == 'x'))
+					{
+						kooF1.y1--;
+						kooF1.y2--;
+						kooF1.y3--;
+						kooF1.y4--;
+						dir = STOP;
+					}
+				}
+
+			}
+			else if (numberFigure == 1)
+			{
+				if (counterPos == 0)
+				{
+					if (!(field[kooF1.x4][kooF1.y4 - 1] == 'x' || field[kooF1.x2][kooF1.y2 - 1] == 'x'))
+					{
+						kooF1.y1--;
+						kooF1.y2--;
+						kooF1.y3--;
+						kooF1.y4--;
+						dir = STOP;
+					}
+				}
+				else if (counterPos == 1)
+				{
+					if (!(field[kooF1.x3][kooF1.y3 - 1] == 'x' || field[kooF1.x2][kooF1.y2 - 1] == 'x' || field[kooF1.x4][kooF1.y4 - 1] == 'x'))
+					{
+						kooF1.y1--;
+						kooF1.y2--;
+						kooF1.y3--;
+						kooF1.y4--;
+						dir = STOP;
+					}
+				}
+
+
+			}
+			else if (numberFigure == 2)
+			{
+				if (field[kooF1.x4][kooF1.y4 - 1] == 'x' || field[kooF1.x2][kooF1.y2 - 1] == 'x')
+				{
+
+				}
+				else
+				{
+					kooF1.y1--;
+					kooF1.y2--;
+					kooF1.y3--;
+					kooF1.y4--;
+					dir = STOP;
+				}
+			}
+			else if (numberFigure == 3)
+			{
+				if (field[kooF1.x4][kooF1.y4 - 1] == 'x' || field[kooF1.x1][kooF1.y1 - 1] == 'x')
+				{
+
+				}
+				else
+				{
+					kooF1.y1--;
+					kooF1.y2--;
+					kooF1.y3--;
+					kooF1.y4--;
+					dir = STOP;
+				}
+			}
+			else if (numberFigure == 4)
+			{
+				if (field[kooF1.x4][kooF1.y4 - 1] == 'x' || field[kooF1.x1][kooF1.y1 - 1] == 'x')
+				{
+
+				}
+				else
+				{
+					kooF1.y1--;
+					kooF1.y2--;
+					kooF1.y3--;
+					kooF1.y4--;
+					dir = STOP;
+				}
+			}
+			else if (numberFigure == 5)
+			{
+				if (field[kooF1.x2][kooF1.y2 - 1] == 'x' || field[kooF1.x1][kooF1.y1 - 1] == 'x' || field[kooF1.x4][kooF1.y4 - 1] == 'x')
+				{
+
+				}
+				else
+				{
+					kooF1.y1--;
+					kooF1.y2--;
+					kooF1.y3--;
+					kooF1.y4--;
+					dir = STOP;
+				}
+			}
+
+
 		}
 		break;
 	}
@@ -318,11 +429,119 @@ void Logic()
 		//  STATR MOVE FIGURE  RIGHT
 		if (kooF1.y1 < 9 && kooF1.y2 < 9 && kooF1.y3 < 9 && kooF1.y4 < 9)
 		{
-			kooF1.y1++;
-			kooF1.y2++;
-			kooF1.y3++;
-			kooF1.y4++;
-			dir = STOP;
+			if (numberFigure == 0)
+			{
+				if (counterPos == 0)
+				{
+					if (!(field[kooF1.x1][kooF1.y1 + 1] == 'x' || field[kooF1.x2][kooF1.y2 + 1] == 'x' || field[kooF1.x3][kooF1.y3 + 1] == 'x' || field[kooF1.x4][kooF1.y4 + 1] == 'x'))
+					{
+						kooF1.y1++;
+						kooF1.y2++;
+						kooF1.y3++;
+						kooF1.y4++;
+						dir = STOP;
+					}
+				}
+				else if (counterPos == 1)
+				{
+					if (!(field[kooF1.x4][kooF1.y1 + 4] == 'x'))
+					{
+						kooF1.y1++;
+						kooF1.y2++;
+						kooF1.y3++;
+						kooF1.y4++;
+						dir = STOP;
+					}
+				}
+
+			}
+			else if (numberFigure == 1)
+			{
+				if (counterPos == 0)
+				{
+					if (!(field[kooF1.x1][kooF1.y1 + 1] == 'x' || field[kooF1.x3][kooF1.y3 + 1] == 'x'))
+					{
+						kooF1.y1++;
+						kooF1.y2++;
+						kooF1.y3++;
+						kooF1.y4++;
+						dir = STOP;
+					}
+				}
+				else if (counterPos == 1)
+				{
+					if (!(field[kooF1.x1][kooF1.y1 + 1] == 'x' || field[kooF1.x2][kooF1.y2 + 1] == 'x' || field[kooF1.x4][kooF1.y4 + 1] == 'x'))
+					{
+						kooF1.y1++;
+						kooF1.y2++;
+						kooF1.y3++;
+						kooF1.y4++;
+						dir = STOP;
+					}
+				}
+
+
+			}
+			else if (numberFigure == 2)
+			{
+				if (field[kooF1.x1][kooF1.y1 + 1] == 'x' || field[kooF1.x3][kooF1.y3 + 1] == 'x')
+				{
+
+				}
+				else
+				{
+					kooF1.y1++;
+					kooF1.y2++;
+					kooF1.y3++;
+					kooF1.y4++;
+					dir = STOP;
+				}
+			}
+			else if (numberFigure == 3)
+			{
+				if (field[kooF1.x1][kooF1.y1 + 1] == 'x' || field[kooF1.x2][kooF1.y2 + 1] == 'x')
+				{
+
+				}
+				else
+				{
+					kooF1.y1++;
+					kooF1.y2++;
+					kooF1.y3++;
+					kooF1.y4++;
+					dir = STOP;
+				}
+			}
+			else if (numberFigure == 4)
+			{
+				if (field[kooF1.x2][kooF1.y2 + 1] == 'x' || field[kooF1.x1][kooF1.y1 + 1] == 'x')
+				{
+
+				}
+				else
+				{
+					kooF1.y1++;
+					kooF1.y2++;
+					kooF1.y3++;
+					kooF1.y4++;
+					dir = STOP;
+				}
+			}
+			else if (numberFigure == 5)
+			{
+				if (field[kooF1.x1][kooF1.y1 + 1] == 'x' || field[kooF1.x3][kooF1.y3 + 1] == 'x' || field[kooF1.x4][kooF1.y4 + 1] == 'x')
+				{
+
+				}
+				else
+				{
+					kooF1.y1++;
+					kooF1.y2++;
+					kooF1.y3++;
+					kooF1.y4++;
+					dir = STOP;
+				}
+			}
 		}
 		break;
 	}
@@ -347,249 +566,213 @@ void Logic()
 		break;
 	}
 
-
 	case CHANGEPOS:
 	{
-	
-		if ((*pFigNumber) == 0)
+		getKoo(kooF1);
+		if (numberFigure == 0)
 		{
-			//first figure
-			if (kooF1.y4 < 10 && kooF1.y1 < 8 && kooF1.y1 >= 0 && kooF1.y4  > 0 && kooF1.x1 < 17)//fix вихода фигуры за поле 
-			{
-				int count = 0;
-				int& pcount = count;
-				if (count == 0)
-				{
-
-					getKoo(kooF1);
-
-					kooF1.x1 = nx + 1;
-					kooF1.x2 = nx2;
-					kooF1.x3 = nx3 - 1;
-					kooF1.x4 = nx4 - 2;
-
-					kooF1.y1 = ny - 1;
-					kooF1.y2 = ny2;
-					kooF1.y3 = ny3 + 1;
-					kooF1.y4 = ny4 + 2;
-					pcount++;
-					
-				}
-				else if (pcount == 1)
-				{
-					getKoo(kooF1);
-					kooF1.x1 = nx - 1;
-					kooF1.x2 = nx2;
-					kooF1.x3 = nx3 + 1;
-					kooF1.x4 = nx4 + 2;
-
-					kooF1.y1 = ny + 1;
-					kooF1.y2 = ny2;
-					kooF1.y3 = ny3 - 1;
-					kooF1.y4 = ny4 - 2;
-
-					pcount = 0;
-				}
-			}
-		}
-		else if ((*pFigNumber) == 1)
-		{
-			//second figure
-			if (kooF1.y1 < 10 && kooF1.y4 >= 0 && kooF1.y3 > 0 && kooF1.x4 < 19) // fix  вихода фигуры за поле
-			{
-				if (counterPos == 0)
-				{
-					getKoo(kooF1);
-
-					kooF1.x1 = nx + 1;
-					kooF1.x2 = nx2;
-					kooF1.x3 = nx3;
-					kooF1.x4 = nx + 2;
-
-					kooF1.y1 = ny;
-					kooF1.y2 = ny2;
-					kooF1.y3 = ny3;
-					kooF1.y4 = ny4 + 2;
-
-
-					counterPos++;
-				}
-				else if (counterPos == 1)
-				{
-					getKoo(kooF1);
-
-					kooF1.x1 = nx - 1;
-					kooF1.x2 = nx2;
-					kooF1.x3 = nx3;
-					kooF1.x4 = nx;
-
-					kooF1.y1 = ny;
-					kooF1.y2 = ny2;
-					kooF1.y3 = ny3;
-					kooF1.y4 = ny4 - 2;
-
-					counterPos = 0;
-
-				}
-			}
-		}
-		else if ((*pFigNumber) == 3)
-		{
-			//fouth figure
-			if (kooF1.y3 > 0 && kooF1.y3 < 9 && kooF1.x3 < 18)
+			if (counterPos == 0 && kooF1.y1 < 8 && kooF1.y1 > 0)
 			{
 
-				if (counterPos == 0)
-				{
-					getKoo(kooF1);
+				kooF1.x1 = pnx + 1;
+				kooF1.y1 = pny - 1;
 
-					kooF1.x1 = nx;
-					kooF1.x2 = nx2;
-					kooF1.x3 = nx3;
-					kooF1.x4 = nx4 + 1;
+				kooF1.x2 = pnx2;
+				kooF1.y2 = pny2;
 
-					kooF1.y1 = ny;
-					kooF1.y2 = ny2;
-					kooF1.y3 = ny3;
-					kooF1.y4 = ny4 + 1;
-					counterPos++;
-				}
-				else if (counterPos == 1)
-				{
+				kooF1.x3 = pnx3 - 1;
+				kooF1.y3 = pny3 + 1;
 
-					getKoo(kooF1);
-					kooF1.x1 = nx + 2;
-					kooF1.x2 = nx2;
-					kooF1.x3 = nx3;
-					kooF1.x4 = nx4 - 1;
-
-					kooF1.y1 = ny;
-					kooF1.y2 = ny2;
-					kooF1.y3 = ny3;
-					kooF1.y4 = ny4 - 1;
-					counterPos++;
-				}
-
-				else if (counterPos == 2)
-				{
-
-					getKoo(kooF1);
-					kooF1.x1 = nx - 2;
-					kooF1.x2 = nx2 + 1;
-					kooF1.x3 = nx3;
-					kooF1.x4 = nx4;
-
-					kooF1.y1 = ny;
-					kooF1.y2 = ny2 - 1;
-					kooF1.y3 = ny3;
-					kooF1.y4 = ny4;
-					counterPos++;
-				}
-				else if (counterPos == 3)
-				{
-
-					getKoo(kooF1);
-					kooF1.x1 = nx;
-					kooF1.x2 = nx2 - 1;
-					kooF1.x3 = nx3;
-					kooF1.x4 = nx4;
-
-					kooF1.y1 = ny;
-					kooF1.y2 = ny2 + 1;
-					kooF1.y3 = ny3;
-					kooF1.y4 = ny4;
-					counterPos = 0;
-				}
+				kooF1.x4 = pnx4 - 2;
+				kooF1.y4 = pny4 + 2;
+				counterPos += 1;
 			}
+			else if (counterPos == 1 && kooF1.x1 < 18)
+			{
+
+				kooF1.x1 -= 1;
+				kooF1.y1 += 1;
+
+				kooF1.x2;
+				kooF1.y2;
+
+				kooF1.x3 += 1;
+				kooF1.y3 -= 1;
+
+				kooF1.x4 += 2;
+				kooF1.y4 -= 2;
+				counterPos = 0;
+			}
+
+
+
 		}
-		else if ((*pFigNumber) == 4)
+
+		else if (numberFigure == 1)
 		{
-			//fivth figure
 			if (counterPos == 0)
 			{
-				if (kooF1.x4 < 18)
-				{
-					counterPos++;
-					getKoo(kooF1);
+				kooF1.x1 = pnx + 1;
+				kooF1.x2 = pnx2;
+				kooF1.x3 = pnx3;
+				kooF1.x4 = pnx + 2;
 
-					kooF1.x1 = nx;
-					kooF1.x2 = nx2 - 1;
-					kooF1.x3 = nx3 + 1;
-					kooF1.x4 = nx4;
-
-					kooF1.y1 = ny;
-					kooF1.y2 = ny2 - 1;
-					kooF1.y3 = ny3 - 1;
-					kooF1.y4 = ny4;
-				}
-
+				kooF1.y1 = pny;
+				kooF1.y2 = pny2;
+				kooF1.y3 = pny3;
+				kooF1.y4 = pny4 + 2;
+				counterPos = 1;
 			}
 			else if (counterPos == 1)
 			{
-				if (kooF1.y1 > 0)
-				{
-					counterPos++;
-					getKoo(kooF1);
+				kooF1.x1 = pnx - 1;
+				kooF1.x2 = pnx2;
+				kooF1.x3 = pnx3;
+				kooF1.x4 = pnx;
 
-					kooF1.x1 = nx;
-					kooF1.x2 = nx2;
-					kooF1.x3 = nx3 - 1;
-					kooF1.x4 = nx4 - 1;
+				kooF1.y1 = pny;
+				kooF1.y2 = pny2;
+				kooF1.y3 = pny3;
+				kooF1.y4 = pny4 - 2;
+				counterPos = 0;
+			}		
 
-					kooF1.y1 = ny;
-					kooF1.y2 = ny2;
-					kooF1.y3 = ny3 + 1;
-					kooF1.y4 = ny4 - 1;
-				}
+		}
 
+
+
+		else if (numberFigure == 3)
+		{
+			if (counterPos == 0)
+			{
+				kooF1.x1 = pnx;
+				kooF1.y1 = pny;
+
+				kooF1.x2 = pnx2 - 1;
+				kooF1.y2 = pny2 - 1;
+
+				kooF1.x3 = pnx3;
+				kooF1.y3 = pny3;
+
+				kooF1.x4 = pnx4;
+				kooF1.y4 = pny4;
+				counterPos += 1;
+			}
+			else if (counterPos == 1)
+			{
+				kooF1.x1 = pnx;
+				kooF1.y1 = pny;
+
+				kooF1.x2 = pnx2;
+				kooF1.y2 = pny2;
+
+				kooF1.x3 = pnx3;
+				kooF1.y3 = pny3;
+
+				kooF1.x4 = pnx4;
+				kooF1.y4 = pny4 + 2;
+				counterPos += 1;
 			}
 			else if (counterPos == 2)
 			{
-				if (kooF1.x3 < 18)
-				{
-					counterPos++;
-					getKoo(kooF1);
-					kooF1.x1 = nx + 2;
-					kooF1.x2 = nx2;
-					kooF1.x3 = nx3;
-					kooF1.x4 = nx4 + 2;
+				kooF1.x1 = pnx - 2;
+				kooF1.y1 = pny;
 
-					kooF1.y1 = ny + 1;
-					kooF1.y2 = ny2;
-					kooF1.y3 = ny3;
-					kooF1.y4 = ny4 + 1;
-				}
+				kooF1.x2 = pnx2 + 1;
+				kooF1.y2 = pny2 - 1;
 
+				kooF1.x3 = pnx3;
+				kooF1.y3 = pny3;
+
+				kooF1.x4 = pnx4;
+				kooF1.y4 = pny4;
+				counterPos += 1;
 			}
 			else if (counterPos == 3)
 			{
-				if (kooF1.y3 < 9)
-				{
-					counterPos++;
-					getKoo(kooF1);
-					kooF1.x1 = nx - 2;
-					kooF1.x2 = nx2 + 1;
-					kooF1.x3 = nx3;
-					kooF1.x4 = nx4 - 1;
+				kooF1.x1 = pnx + 2;
+				kooF1.y1 = pny;
 
-					kooF1.y1 = ny - 1;
-					kooF1.y2 = ny2 + 1;
-					kooF1.y3 = ny3;
-					kooF1.y4 = ny4;
-					counterPos = 0;
-				}
+				kooF1.x2 = pnx2;
+				kooF1.y2 = pny2 + 2;
+
+				kooF1.x3 = pnx3;
+				kooF1.y3 = pny3;
+
+				kooF1.x4 = pnx4;
+				kooF1.y4 = pny4 - 2;
+				counterPos = 0;
 			}
 		}
-		else if ((*pFigNumber) == 5)
+
+		else if (numberFigure == 4)
+		{
+		if (counterPos == 0)
+		{
+			kooF1.x1 = pnx;
+			kooF1.x2 = pnx2 - 1;
+			kooF1.x3 = pnx3 + 1;
+			kooF1.x4 = pnx4;
+					   
+			kooF1.y1 = pny;
+			kooF1.y2 = pny2 - 1;
+			kooF1.y3 = pny3 - 1;
+			kooF1.y4 = pny4;
+			counterPos++;
+		}
+		else if (counterPos == 1)
 		{
 
+			kooF1.x1 = nx;
+			kooF1.x2 = nx2;
+			kooF1.x3 = nx3 - 1;
+			kooF1.x4 = nx4 - 1;
+
+			kooF1.y1 = ny;
+			kooF1.y2 = ny2;
+			kooF1.y3 = ny3 + 1;
+			kooF1.y4 = ny4 - 1;
+			counterPos++;
 		}
+		else if (counterPos == 2)
+		{
+			kooF1.x1 = nx + 2;
+			kooF1.x2 = nx2;
+			kooF1.x3 = nx3;
+			kooF1.x4 = nx4 + 2;
+
+			kooF1.y1 = ny + 1;
+			kooF1.y2 = ny2;
+			kooF1.y3 = ny3;
+			kooF1.y4 = ny4 + 1;
+			counterPos++;
+		}
+		else if (counterPos == 3)
+		{
+			kooF1.x1 = nx - 2;
+			kooF1.x2 = nx2 + 1;
+			kooF1.x3 = nx3;
+			kooF1.x4 = nx4 - 1;
+
+			kooF1.y1 = ny - 1;
+			kooF1.y2 = ny2 + 1;
+			kooF1.y3 = ny3;
+			kooF1.y4 = ny4;
+			counterPos = 0;
+		}
+
+		}
+
+
 		dir = STOP;
 	}
+
+
 	}
 }
 
-void finished()
+
+void finished(int numberFigure,int& counterPos)
 {
 	const int bottom = 18;
 	//проветка дошла ли фигура до конца масива
@@ -597,23 +780,100 @@ void finished()
 	{
 		dir = FINISHED;
 	}
+	
+	//first figure
+	if (numberFigure == 0)
+	{
+		if (counterPos == 0)
+		{
+			if (field[kooF1.x4 + 1][kooF1.y4] == 'x')
+			{
+				dir = FINISHED;
+			}
+		}
+		else if (counterPos == 1)
+		{
+			if (field[kooF1.x1 + 1][kooF1.y1] == 'x' || field[kooF1.x2 + 1][kooF1.y2] == 'x' || field[kooF1.x3 + 1][kooF1.y3] == 'x' || field[kooF1.x4 + 1][kooF1.y4] == 'x')
+			{
+				dir = FINISHED;
+			}
+		}
+		
+	}
+	else if (numberFigure == 1)
+	{
+		if (counterPos == 0)
+		{
+			if (field[kooF1.x4 + 1][kooF1.y4] == 'x' || field[kooF1.x3 + 1][kooF1.y3] == 'x' || field[kooF1.x1 + 1][kooF1.y1] == 'x')
+			{
+				dir = FINISHED;
+			}
+		}
+		else if (counterPos == 1)
+		{
+			if (field[kooF1.x3 + 1][kooF1.y3] == 'x' || field[kooF1.x4 + 1][kooF1.y4] == 'x' || field[kooF1.x1 + 1][kooF1.y1] == 'x')
+			{
+				dir = FINISHED;
+			}
+		}
+		
+	}
+	else if (numberFigure == 2)
+	{
+		if (field[kooF1.x4 + 1][kooF1.y4] == 'x' || field[kooF1.x3 + 1][kooF1.y3] == 'x')
+		{
+			dir = FINISHED;
+		}
+	}
+	else if (numberFigure == 3)
+	{
+		if (field[kooF1.x4 + 1][kooF1.y4] == 'x' || field[kooF1.x3 + 1][kooF1.y3] == 'x' || field[kooF1.x2 + 1][kooF1.y2] == 'x')
+		{
+			dir = FINISHED;
+		}
+	}
+	else if (numberFigure == 4)
+	{
+		if (field[kooF1.x4 + 1][kooF1.y4] == 'x' || field[kooF1.x3 + 1][kooF1.y3] == 'x' || field[kooF1.x2 + 1][kooF1.y2] == 'x')
+		{
+			dir = FINISHED;
+		}
+	}
+	else if (numberFigure == 5)
+	{
+		if (field[kooF1.x4 + 1][kooF1.y4] == 'x' || field[kooF1.x2 + 1][kooF1.y2] == 'x')
+		{
+			dir = FINISHED;
+		}
+	}
+
+	
+		
+	
 
 }
 
-void getKoo(figure_1 &f)
-{
-	pnx = f.x1;
-	pny = f.y1;
+//void score()
+//{
+//	//if (field[19][0] == 'x' && field[19][1] == 'x' && field[19][2] == 'x' && field[19][3] == 'x' && field[19][4] == 'x' && field[19][5] == 'x' && field[19][6] == 'x' && field[19][7] == 'x' && field[19][8] == 'x' && field[19][9] == 'x')
+//	
+//	for (int i = 0; i < fieldHeight; i++)
+//	{
+//		for (int j = 0; j < fieldWidth; j++)
+//		{
+//			if (field[i][j]);
+//		}
+//	}
+//
+//		for (int i = 0; i < 10; i++)
+//		{
+//			field[19][i] = ' ';
+//		}
+//		
+//		dir = SCORE;
+//	
+//}
 
-	pnx2 = f.x2;
-	pny2 = f.y2;
-
-	pnx3 = f.x3;
-	pny3 = f.y3;
-
-	pnx4 = f.x4;
-	pny4 = f.y4;
-}
 void DrawNextFigure(int a)
 {
 	const short sz = 4, sz1 = 4;
@@ -708,4 +968,20 @@ void ShowNextFig(char arr[][4])
 		cout << "|";
 		cout << endl;
 	}
+}
+void getKoo(figure_1 &f)
+{
+	
+		pnx = f.x1;
+		pny = f.y1;
+
+		pnx2 = f.x2;
+		pny2 = f.y2;
+			   
+		pnx3 = f.x3;
+		pny3 = f.y3;
+			   
+		pnx4 = f.x4;
+		pny4 = f.y4;
+	
 }
