@@ -169,10 +169,10 @@ void InitFig6(figure_1 &f)
 }
 void RememerFigure()
 {
-	field[kooF1.x1][kooF1.y1] = '1';
-	field[kooF1.x2][kooF1.y2] = '2';
-	field[kooF1.x3][kooF1.y3] = '3';
-	field[kooF1.x4][kooF1.y4] = '4';
+	field[kooF1.x1][kooF1.y1] = 'x';
+	field[kooF1.x2][kooF1.y2] = 'x';
+	field[kooF1.x3][kooF1.y3] = 'x';
+	field[kooF1.x4][kooF1.y4] = 'x';
 }
 
 void ClearFigure()
@@ -360,26 +360,75 @@ void Logic(int numberFigure, int& counterPos)
 			}
 			else if (numberFigure == 2)
 			{
-				if (field[kooF1.x4][kooF1.y4 - 1] == 'x' || field[kooF1.x2][kooF1.y2 - 1] == 'x')
+				if (!(field[kooF1.x4][kooF1.y4 - 1] == 'x' || field[kooF1.x2][kooF1.y2 - 1] == 'x'))
 				{
-
+					if(!(field[kooF1.x2][kooF1.y2 - 1] == 'x' || field[kooF1.x4][kooF1.y4 - 1] == 'x'))
+					{
+						kooF1.y1--;
+						kooF1.y2--;
+						kooF1.y3--;
+						kooF1.y4--;
+						dir = STOP;
+					}
+				
 				}
-				else
-				{
-					kooF1.y1--;
-					kooF1.y2--;
-					kooF1.y3--;
-					kooF1.y4--;
-					dir = STOP;
-				}
+	
 			}
 			else if (numberFigure == 3)
 			{
-				if (field[kooF1.x4][kooF1.y4 - 1] == 'x' || field[kooF1.x1][kooF1.y1 - 1] == 'x')
+				if (counterPos == 0)
 				{
-
+					if (!(field[kooF1.x4][kooF1.y4 - 1] == 'x' || field[kooF1.x1][kooF1.y1 - 1] == 'x'))
+					{
+						kooF1.y1--;
+						kooF1.y2--;
+						kooF1.y3--;
+						kooF1.y4--;
+						dir = STOP;
+					}
 				}
-				else
+				else if (counterPos == 1)
+				{
+					if (!(field[kooF1.x4][kooF1.y4 - 1] == 'x' || field[kooF1.x1][kooF1.y1 - 1] == 'x' || field[kooF1.x2][kooF1.y2 - 1] == 'x'))
+					{
+						kooF1.y1--;
+						kooF1.y2--;
+						kooF1.y3--;
+						kooF1.y4--;
+						dir = STOP;
+					}
+				}
+
+				else if (counterPos == 2)
+				{
+					if (!(field[kooF1.x3][kooF1.y3 - 1] == 'x' || field[kooF1.x1][kooF1.y1 - 1] == 'x' || field[kooF1.x2][kooF1.y2 - 1] == 'x'))
+					{
+						kooF1.y1--;
+						kooF1.y2--;
+						kooF1.y3--;
+						kooF1.y4--;
+						dir = STOP;
+					}
+				}
+				else if (counterPos == 3)
+				{
+					if (!(field[kooF1.x1][kooF1.y1 - 1] == 'x' || field[kooF1.x2][kooF1.y2 - 1] == 'x'))
+					{
+						kooF1.y1--;
+						kooF1.y2--;
+						kooF1.y3--;
+						kooF1.y4--;
+						dir = STOP;
+					}
+				}
+				
+				
+			}
+			else if (numberFigure == 4)
+			{
+			if (counterPos == 0)
+			{
+				if (!(field[kooF1.x4][kooF1.y4 - 1] == 'x' || field[kooF1.x1][kooF1.y1 - 1] == 'x'))
 				{
 					kooF1.y1--;
 					kooF1.y2--;
@@ -388,13 +437,9 @@ void Logic(int numberFigure, int& counterPos)
 					dir = STOP;
 				}
 			}
-			else if (numberFigure == 4)
+			else if (counterPos == 1)
 			{
-				if (field[kooF1.x4][kooF1.y4 - 1] == 'x' || field[kooF1.x1][kooF1.y1 - 1] == 'x')
-				{
-
-				}
-				else
+				if (!(field[kooF1.x4][kooF1.y4 - 1] == 'x' || field[kooF1.x1][kooF1.y1 - 1] == 'x' || field[kooF1.x3][kooF1.y3 - 1] == 'x'))
 				{
 					kooF1.y1--;
 					kooF1.y2--;
@@ -402,6 +447,33 @@ void Logic(int numberFigure, int& counterPos)
 					kooF1.y4--;
 					dir = STOP;
 				}
+			}
+
+			else if (counterPos == 2)
+			{
+				if (!(field[kooF1.x4][kooF1.y4 - 1] == 'x' || field[kooF1.x3][kooF1.y3 - 1] == 'x'))
+				{
+					kooF1.y1--;
+					kooF1.y2--;
+					kooF1.y3--;
+					kooF1.y4--;
+					dir = STOP;
+				}
+			}
+
+			else if (counterPos == 3)
+			{
+				if (!(field[kooF1.x4][kooF1.y4 - 1] == 'x' || field[kooF1.x2][kooF1.y2 - 1] == 'x' || field[kooF1.x3][kooF1.y3 - 1] == 'x'))
+				{
+					kooF1.y1--;
+					kooF1.y2--;
+					kooF1.y3--;
+					kooF1.y4--;
+					dir = STOP;
+				}
+			}
+			
+				
 			}
 			else if (numberFigure == 5)
 			{
@@ -484,11 +556,7 @@ void Logic(int numberFigure, int& counterPos)
 			}
 			else if (numberFigure == 2)
 			{
-				if (field[kooF1.x1][kooF1.y1 + 1] == 'x' || field[kooF1.x3][kooF1.y3 + 1] == 'x')
-				{
-
-				}
-				else
+				if (!(field[kooF1.x1][kooF1.y1 + 1] == 'x' || field[kooF1.x3][kooF1.y3 + 1] == 'x'))
 				{
 					kooF1.y1++;
 					kooF1.y2++;
@@ -496,14 +564,69 @@ void Logic(int numberFigure, int& counterPos)
 					kooF1.y4++;
 					dir = STOP;
 				}
+				
 			}
 			else if (numberFigure == 3)
 			{
-				if (field[kooF1.x1][kooF1.y1 + 1] == 'x' || field[kooF1.x2][kooF1.y2 + 1] == 'x')
+				if (!(field[kooF1.x1][kooF1.y1 + 1] == 'x' || field[kooF1.x2][kooF1.y2 + 1] == 'x'))
 				{
+					if (counterPos == 0)
+					{
+						if (!(field[kooF1.x2][kooF1.y2 + 1] == 'x' || field[kooF1.x1][kooF1.y1 + 1] == 'x'))
+						{
+							kooF1.y1++;
+							kooF1.y2++;
+							kooF1.y3++;
+							kooF1.y4++;
+							dir = STOP;
+						}
+					}
 
+					else if (counterPos == 1)
+					{
+						if (!(field[kooF1.x2][kooF1.y2 + 1] == 'x' || field[kooF1.x1][kooF1.y1 + 1] == 'x' || field[kooF1.x3][kooF1.y3 + 1] == 'x'))
+						{
+							kooF1.y1++;
+							kooF1.y2++;
+							kooF1.y3++;
+							kooF1.y4++;
+							dir = STOP;
+						}
+					}
+
+					else if (counterPos == 2)
+					{
+						if (!(field[kooF1.x2][kooF1.y2 + 1] == 'x' || field[kooF1.x1][kooF1.y1 + 1] == 'x' || field[kooF1.x4][kooF1.y4 + 1] == 'x'))
+						{
+							kooF1.y1++;
+							kooF1.y2++;
+							kooF1.y3++;
+							kooF1.y4++;
+							dir = STOP;
+						}
+					}
+
+					else if (counterPos == 3)
+					{
+						if (!(field[kooF1.x1][kooF1.y1 + 1] == 'x' || field[kooF1.x4][kooF1.y4 + 1] == 'x'))
+						{
+							kooF1.y1++;
+							kooF1.y2++;
+							kooF1.y3++;
+							kooF1.y4++;
+							dir = STOP;
+						}
+					}
+					
 				}
-				else
+				
+			}
+			else if (numberFigure == 4)
+			{
+
+			if (counterPos == 0)
+			{
+				if (!(field[kooF1.x2][kooF1.y2 + 1] == 'x' || field[kooF1.x1][kooF1.y1 + 1] == 'x'))
 				{
 					kooF1.y1++;
 					kooF1.y2++;
@@ -512,13 +635,9 @@ void Logic(int numberFigure, int& counterPos)
 					dir = STOP;
 				}
 			}
-			else if (numberFigure == 4)
+			else if (counterPos == 1)
 			{
-				if (field[kooF1.x2][kooF1.y2 + 1] == 'x' || field[kooF1.x1][kooF1.y1 + 1] == 'x')
-				{
-
-				}
-				else
+				if (!(field[kooF1.x2][kooF1.y2 + 1] == 'x' || field[kooF1.x4][kooF1.y4 + 1] == 'x' || field[kooF1.x3][kooF1.y3 + 1]))
 				{
 					kooF1.y1++;
 					kooF1.y2++;
@@ -526,6 +645,33 @@ void Logic(int numberFigure, int& counterPos)
 					kooF1.y4++;
 					dir = STOP;
 				}
+			}
+
+			else if (counterPos == 2)
+			{
+				if (!(field[kooF1.x2][kooF1.y2 + 1] == 'x' || field[kooF1.x3][kooF1.y3 + 1]))
+				{
+					kooF1.y1++;
+					kooF1.y2++;
+					kooF1.y3++;
+					kooF1.y4++;
+					dir = STOP;
+				}
+			}
+
+			else if (counterPos == 3)
+			{
+				if (!(field[kooF1.x2][kooF1.y2 + 1] == 'x' || field[kooF1.x1][kooF1.y1 + 1] == 'x' || field[kooF1.x3][kooF1.y3 + 1]))
+				{
+					kooF1.y1++;
+					kooF1.y2++;
+					kooF1.y3++;
+					kooF1.y4++;
+					dir = STOP;
+				}
+			}
+				
+	
 			}
 			else if (numberFigure == 5)
 			{
@@ -709,56 +855,72 @@ void Logic(int numberFigure, int& counterPos)
 		{
 		if (counterPos == 0)
 		{
-			kooF1.x1 = pnx;
-			kooF1.x2 = pnx2 - 1;
-			kooF1.x3 = pnx3 + 1;
-			kooF1.x4 = pnx4;
-					   
-			kooF1.y1 = pny;
-			kooF1.y2 = pny2 - 1;
-			kooF1.y3 = pny3 - 1;
-			kooF1.y4 = pny4;
-			counterPos++;
+			if (kooF1.x4 < 19)
+			{
+				kooF1.x1 = pnx;
+				kooF1.x2 = pnx2 - 1;
+				kooF1.x3 = pnx3 + 1;
+				kooF1.x4 = pnx4;
+
+				kooF1.y1 = pny;
+				kooF1.y2 = pny2 - 1;
+				kooF1.y3 = pny3 - 1;
+				kooF1.y4 = pny4;
+				counterPos++;
+			}
+			
 		}
 		else if (counterPos == 1)
 		{
+			if (kooF1.y1 > 0)
+			{
+				kooF1.x1 = nx;
+				kooF1.x2 = nx2;
+				kooF1.x3 = nx3 - 1;
+				kooF1.x4 = nx4 - 1;
 
-			kooF1.x1 = nx;
-			kooF1.x2 = nx2;
-			kooF1.x3 = nx3 - 1;
-			kooF1.x4 = nx4 - 1;
+				kooF1.y1 = ny;
+				kooF1.y2 = ny2;
+				kooF1.y3 = ny3 + 1;
+				kooF1.y4 = ny4 - 1;
+				counterPos++;
+			}
 
-			kooF1.y1 = ny;
-			kooF1.y2 = ny2;
-			kooF1.y3 = ny3 + 1;
-			kooF1.y4 = ny4 - 1;
-			counterPos++;
+			
 		}
 		else if (counterPos == 2)
 		{
-			kooF1.x1 = nx + 2;
-			kooF1.x2 = nx2;
-			kooF1.x3 = nx3;
-			kooF1.x4 = nx4 + 2;
+			if (kooF1.x3 < 19)
+			{
+				kooF1.x1 = nx + 2;
+				kooF1.x2 = nx2;
+				kooF1.x3 = nx3;
+				kooF1.x4 = nx4 + 2;
 
-			kooF1.y1 = ny + 1;
-			kooF1.y2 = ny2;
-			kooF1.y3 = ny3;
-			kooF1.y4 = ny4 + 1;
-			counterPos++;
+				kooF1.y1 = ny + 1;
+				kooF1.y2 = ny2;
+				kooF1.y3 = ny3;
+				kooF1.y4 = ny4 + 1;
+				counterPos++;
+			}
+		
 		}
 		else if (counterPos == 3)
 		{
-			kooF1.x1 = nx - 2;
-			kooF1.x2 = nx2 + 1;
-			kooF1.x3 = nx3;
-			kooF1.x4 = nx4 - 1;
+			if (kooF1.y3 < 9)
+			{
+				kooF1.x1 = nx - 2;
+				kooF1.x2 = nx2 + 1;
+				kooF1.x3 = nx3;
+				kooF1.x4 = nx4 - 1;
 
-			kooF1.y1 = ny - 1;
-			kooF1.y2 = ny2 + 1;
-			kooF1.y3 = ny3;
-			kooF1.y4 = ny4;
-			counterPos = 0;
+				kooF1.y1 = ny - 1;
+				kooF1.y2 = ny2 + 1;
+				kooF1.y3 = ny3;
+				kooF1.y4 = ny4;
+				counterPos = 0;
+			}
+			
 		}
 
 		}
@@ -818,6 +980,7 @@ void finished(int numberFigure,int& counterPos)
 		}
 		
 	}
+
 	else if (numberFigure == 2)
 	{
 		if (field[kooF1.x4 + 1][kooF1.y4] == 'x' || field[kooF1.x3 + 1][kooF1.y3] == 'x')
@@ -825,23 +988,73 @@ void finished(int numberFigure,int& counterPos)
 			dir = FINISHED;
 		}
 	}
+
 	else if (numberFigure == 3)
 	{
-		if (field[kooF1.x4 + 1][kooF1.y4] == 'x' || field[kooF1.x3 + 1][kooF1.y3] == 'x' || field[kooF1.x2 + 1][kooF1.y2] == 'x')
+		if (counterPos == 0)
 		{
-			dir = FINISHED;
+			if (field[kooF1.x4 + 1][kooF1.y4] == 'x' || field[kooF1.x1 + 1][kooF1.y1] == 'x' || field[kooF1.x2 + 1][kooF1.y2] == 'x')
+			{
+				dir = FINISHED;
+			}
 		}
+
+		if (counterPos == 1 || counterPos == 2)
+		{
+			if (field[kooF1.x4 + 1][kooF1.y4] == 'x' || field[kooF1.x1 + 1][kooF1.y1] == 'x')
+			{
+				dir = FINISHED;
+			}
+		}
+		if (counterPos == 3)
+		{
+			if (field[kooF1.x4 + 1][kooF1.y4] == 'x' || field[kooF1.x3 + 1][kooF1.y3] == 'x' || field[kooF1.x2 + 1][kooF1.y2] == 'x')
+			{
+				dir = FINISHED;
+			}
+		}
+
+		
 	}
+
 	else if (numberFigure == 4)
 	{
-		if (field[kooF1.x4 + 1][kooF1.y4] == 'x' || field[kooF1.x3 + 1][kooF1.y3] == 'x' || field[kooF1.x2 + 1][kooF1.y2] == 'x')
+		if (counterPos == 0)
 		{
-			dir = FINISHED;
+			if (field[kooF1.x4 + 1][kooF1.y4] == 'x' || field[kooF1.x3 + 1][kooF1.y3] == 'x' || field[kooF1.x2 + 1][kooF1.y2] == 'x')
+			{
+				dir = FINISHED;
+			}
 		}
+
+		if (counterPos == 1)
+		{
+			if (field[kooF1.x3 + 1][kooF1.y3] == 'x' || field[kooF1.x2 + 1][kooF1.y2] == 'x')
+			{
+				dir = FINISHED;
+			}
+		}
+
+		if (counterPos == 2)
+		{
+			if (field[kooF1.x4 + 1][kooF1.y4] == 'x' || field[kooF1.x3 + 1][kooF1.y3] == 'x' || field[kooF1.x1 + 1][kooF1.y1] == 'x')
+			{
+				dir = FINISHED;
+			}
+		}
+
+		if (counterPos == 3)
+		{
+			if (field[kooF1.x4 + 1][kooF1.y4] == 'x' || field[kooF1.x1 + 1][kooF1.y1] == 'x')
+			{
+				dir = FINISHED;
+			}
+		}
+		
 	}
 	else if (numberFigure == 5)
 	{
-		if (field[kooF1.x4 + 1][kooF1.y4] == 'x' || field[kooF1.x2 + 1][kooF1.y2] == 'x')
+		if (field[kooF1.x4 + 1][kooF1.y4] == 'x' || field[kooF1.x1 + 1][kooF1.y1] == 'x')
 		{
 			dir = FINISHED;
 		}
